@@ -1,0 +1,27 @@
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes.dex : \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/app2.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$string.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$xml.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/BuildConfig.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$drawable.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$attr.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$1$2.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$2$2.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$4.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$2.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$1.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$4$1.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$3$3.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$2$1.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$5.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$2$3.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$3$1.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$5$1.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$1$1.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$3$4.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$3$2.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$3.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$2$4.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/dexedLibs/classes-cee192427a6fe3b729326ab344046b95.jar \

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>pointeres</title>
+    </head>
+    <body>
+        <div id="wrapper" class="page">
+            <div id="principal" class="page center">
+                <div id="header">
+                    <div class="icon icon-menu"></div>
+                </div>
+                <div id="content">
+                    <div id="mapa"></div>
+                    <ul id="nav_principal">
+                        <li><div class="icon icon-qr"></div>Captura código QR</li>
+                        <li><div class="icon icon-poi"></div>Puntos de interés</li>
+                        <li><div class="icon icon-mapa"></div>Mapas</li>
+                        <li><div class="icon icon-rutea"></div>Rutea</li>
+                    </ul>
+                    <ul id="nav_secundario">
+                        <li><div class="icon icon-ocio"></div>Actividades y ocio</li>
+                        <li><div class="icon icon-gastro"></div>Gastro</li>
+                        <li><div class="icon icon-shopping"></div>Shopping</li>
+                    </ul>
+                </div>
+                <div id="footer">
+                    <div class="publi">Publicidad</div>
+                </div>
+            </div>
+
+            <div id="menu" class="nav invert page left">
+                <a href="#">Scan QR Code</a>
+                <a href="#">Go to map</a>
+                <a href="#">About</a>
+            </div>
+        </div>
+
+        
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/xui_base.js"></script>
+        <script type="text/javascript" src="js/xui_event.js"></script>
+        <script type="text/javascript" src="js/xui_style.js"></script>
+        <script type="text/javascript" src="js/fastclick.js"></script>
+        <script type="text/javascript" src="js/iscroll.js"></script>
+        
+        <script type="text/javascript" src="js/index.js"></script>
+
+        <script type="text/javascript">
+            app.initialize();
+            // new FastClick(document.body);
+            // x$(function() {
+            // });
+        // alert ('test');
+        </script>
+    </body>
+</html>

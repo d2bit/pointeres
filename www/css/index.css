@@ -1,0 +1,221 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#eee;
+    font-family: Verdana, Arial, sans-serif;
+    font-size:18px;
+    height:100%;
+    width:100%;
+}
+
+/* Portrait layout (default) */
+.app {
+    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
+    position:absolute;             /* position in the center of the screen */
+    left:50%;
+    top:50%;
+    height:50px;                   /* text area height */
+    width:225px;                   /* text area width */
+    text-align:center;
+    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+    }
+}
+
+
+/* d2bit */
+html, body, ul, li {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/*POSICIONAMIENTO*/
+.page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-transition-duration: .5s;
+    transition-duration: .5s;
+}
+.page.left {
+    -webkit-transform: translate3D(-100%, 0, 0);
+    transform: translate3D(-100%, 0, 0);
+}
+.page.center {
+    -webkit-transform: translate3D(0, 0, 0);
+    transform: translate3D(0, 0, 0);
+}
+.page.right {
+    -webkit-transform: translate3D(80%, 0, 0);
+    transform: translate3D(80%, 0, 0);
+}
+.page.transition {
+    -webkit-transition-duration: .25s;
+    transition-duration: .25s;
+}
+
+/*PAGINA PRINCIPAL*/
+#header,
+#mapa,
+#nav_principal,
+#nav_secundario {
+    border-bottom: 4px solid #98cb00;
+    box-shadow: 1px 2px 1px #888;
+}
+#header {
+    background: url('../img/logo_header.png') center center no-repeat;
+    height: 50px;
+}
+#mapa {
+    height: 200px;
+    background-color: gray;
+}
+#footer {
+    background: url('../img/logo_header.png') center center no-repeat;
+    height: 70px;
+    position: relative;
+}
+#footer > .publi {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: .4em;
+}
+
+/*BOTONES MENU*/
+ul {
+    overflow: hidden;
+}
+ul > li {
+    display: block;
+    list-style: none;
+    /*height: 35px;*/
+    border-top: 1px solid #333;
+    padding: .8em 0 .8em 3.5em;
+    position: relative;
+}
+ul > li > .icon {
+    /*margin-left: -50px; icons30
+    margin-top: -5px;*/
+    margin-left: -55px;
+    margin-top: -8px;
+}
+
+/*OTROS*/
+#wrapper {
+    /*overflow: hidden;*/
+}
+#menu {
+    width: 80%;
+    background-color: #98cb00;
+}
+.nav.invert > a {
+    color: white;
+    background-color: #98cb00;
+}
+.nav > a  {
+    display: block;
+    line-height: 3.5em;
+    text-decoration: none;
+    color: #333333;
+    border-top: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    text-align: center;
+}
+
+/*ICONS*/
+.icon {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+}
+.icon-menu {
+    background: url('../img/icons40.png') -80px -79px;
+}
+.icon-atras {
+    background: url('../img/icons40.png') -119px 0px;
+}
+
+/*primer menu*/
+.icon-qr {
+    background: url('../img/icons40.png') 0px 0px;
+}
+.icon-poi {
+    background: url('../img/icons40.png') -40px 0px;
+}
+.icon-mapa {
+    background: url('../img/icons40.png') -79px 0px;
+}
+.icon-rutea {
+    background: url('../img/icons40.png') -119px 0px;
+}
+/*segundo menu*/
+.icon-ocio {
+    background: url('../img/icons40.png') 0px -79px;
+}
+.icon-gastro {
+    background: url('../img/icons40.png') -40px -40px;
+}
+.icon-shopping {
+    background: url('../img/icons40.png') -79px -40px;
+}
+/*otros iconos*/
+.icon-barco {
+    background: url('../img/icons40.png') -40px 0px;
+}
+.icon-video {
+    background: url('../img/icons40.png') -40px -119px;
+}
+.icon-marcador {
+    background: url('../img/icons40.png') -79px -119px;
+}
+
+/*ICONO MENU*/
+#header > .icon {
+    /*top: 10px; icons30
+    left: 20px;*/
+    top: 5px;
+    left: 18px;
+}
+
+ /*ISCROLL*/
+ #content {
+    position: relative;
+ }
