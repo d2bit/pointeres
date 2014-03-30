@@ -140,7 +140,7 @@ ul > li > .icon {
 
 /*OTROS*/
 #wrapper {
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 #menu {
     width: 80%;

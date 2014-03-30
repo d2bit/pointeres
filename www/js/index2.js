@@ -1,31 +1,37 @@
 $(window).on('load', onLoad);
 
+var myScroll;
+
 function onLoad() {
 	alert("onLoad...");
 	$().ready(function() {
 		document.addEventListener("deviceready",
 			onDeviceReady, false);
 	});
-}
+    // onDeviceReady(); //sobra
 
-function onDeviceReady() {
-	alert('onDeviceReady...');
-    $('#header').on('touchstart', function(evt) {
+    // FastClick.attach(document.body);
+
+
+    // EVENTOS
+    $('#header').on('tap', function(evt) {
         if ($('#principal').hasClass('center')) {
-            console.log('click on header - muestra menu');
             $('#principal').removeClass('center').addClass('right');
             $('#menu').removeClass('left').addClass('center');
         }
         else {
-            console.log('click on header - oculta menu');
             $('#principal').removeClass('right').addClass('center');
             $('#menu').removeClass('center').addClass('left');
         }
     });
 
-    x$('#nav_principal > li').on('touchstart', function(evt) { 
-        // console.log(this.innerText);
+    $('#nav_principal > li').on('tap', function(evt) { 
         alert(this.innerText);
     });
+}
 
+function onDeviceReady() {
+	alert('onDeviceReady...');
+
+    myScroll = new IScroll('#wrapper');
 }
