@@ -32,6 +32,7 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/xui_base.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/iscroll.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/xui_event.js \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/index2.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/css/index.css \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/img/logo_header.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/img/icons40.png \

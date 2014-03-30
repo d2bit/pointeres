@@ -27,6 +27,9 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        document.addEventListener('error', function(evt) {
+            alert('Error! '+ evt);
+        });
     },
     // deviceready Event Handler
     //
@@ -45,23 +48,31 @@ var app = {
             
             // new IScroll('#content', { scrollY: false, scrollbars: false});
 
-            x$('#header').on('click', function(evt) {
-                if (x$('#principal').hasClass('center')) {
-                    console.log('click on header - muestra menu');
-                    x$('#principal').removeClass('center').addClass('right');
-                    x$('#menu').removeClass('left').addClass('center');
-                }
-                else {
-                    console.log('click on header - oculta menu');
-                    x$('#principal').removeClass('right').addClass('center');
-                    x$('#menu').removeClass('center').addClass('left');
-                }
-            });
-            x$('#nav_principal > li').on('click', function(evt) { 
-                console.log(this.innerText);
+            alert(id + " 1");
+
+            // x$.ready(function(){
+                    alert('xui is ready');
+                /*x$('#header').on('touchstart', function(evt) {
+                    if (x$('#principal').hasClass('center')) {
+                        console.log('click on header - muestra menu');
+                        x$('#principal').removeClass('center').addClass('right');
+                        x$('#menu').removeClass('left').addClass('center');
+                    }
+                    else {
+                        console.log('click on header - oculta menu');
+                        x$('#principal').removeClass('right').addClass('center');
+                        x$('#menu').removeClass('center').addClass('left');
+                    }
+                });
+            // });*/
+            x$('#nav_principal > li').on('touchstart', function(evt) { 
+                // console.log(this.innerText);
                 alert(this.innerText);
             });
+            document.getElementById('header').addEventListener('touchstart', function() {
+                alert('click en el header');
+            }, false);
 
-            alert(id);
+            alert(id + ' 2');
     }
 };
