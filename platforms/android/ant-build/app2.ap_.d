@@ -28,7 +28,9 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/dom.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/xui_style.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/fastclick.js \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/touch.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/index.js \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/zepto.min.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/xui_base.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/iscroll.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/xui_event.js \
