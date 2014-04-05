@@ -8,6 +8,11 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$drawable.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$attr.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/geolocation/GPSListener.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/geolocation/GeoBroker.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/geolocation/CordovaLocationListener.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/geolocation/NetworkListener.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/geolocation/CordovaLocationListener$LocationTimeoutTask.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser$5.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser$1.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser$5$2.class \

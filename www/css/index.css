@@ -180,7 +180,8 @@ ul {
 #ocio > .header > .icon-ocio,
 #gastro > .header > .icon-gastro,
 #shopping > .header > .icon-shopping,
-#videoPlayer > .header > .icon-video  {
+#videoPlayer > .header > .icon-video,
+#map > .header > .icon-mapa   {
     left: 55%;
 }
 /* PLAYER */
@@ -189,6 +190,12 @@ ul {
     width: 100%;
     height: 100%;
     background-color: #eee;
+}
+/* MAP */
+#mapplace {
+    background-color: green;
+    width: 100%;
+    height: 100%;
 }
 /*BOTONES MENU*/
 ul {

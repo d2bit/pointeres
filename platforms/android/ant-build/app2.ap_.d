@@ -83,6 +83,7 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/iscroll.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/xui_event.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/index2.js \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/gmaps.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/css/index.css \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/img/logo_header.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/img/icons40.png \
@@ -97,6 +98,7 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.inappbrowser \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.dialogs \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.geolocation \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/nl.x-services.plugins.socialsharing/www \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/nl.x-services.plugins.socialsharing/www/SocialSharing.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.network-information/www \
@@ -110,4 +112,9 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.dialogs/www/android/notification.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen/www \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen/www/splashscreen.js \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.geolocation/www \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.geolocation/www/geolocation.js \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.geolocation/www/PositionError.js \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.geolocation/www/Coordinates.js \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.geolocation/www/Position.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/AndroidManifest.xml \

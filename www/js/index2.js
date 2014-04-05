@@ -2,7 +2,8 @@ $(window).on('load', onLoad);
 
 var whereiam;
 var myScroll;
-var videoPlayer;
+var videoPlayer = false;
+var map = false;
 
 function onLoad() {
 
@@ -65,16 +66,50 @@ function onLoad() {
             $('#' + whereiam).removeClass('center').addClass('left');
             $('#videoPlayer > .content').html('<iframe width="100%" src="http://www.youtube.com/embed/u6RFyVN9sNg#autoplay=1" frameborder="0" allowfullscreen></iframe><br><button onclick="window.plugins.socialsharing.share(\'Message only\')">Share</button><br><button onclick="window.plugins.socialsharing.canShareVia(\'whatsapp\', \'msg\', null, null, null, function(e){alert(\'si\')}, function(e){alert(e)})">is WhatsApp available?</button><br><button onclick="window.plugins.socialsharing.canShareVia(\'mms\', \'msg\', null, null, null, function(e){alert(\'si\')}, function(e){alert(e)})">is SMS available?</button>');
         }
-    })
+    });
+    $('#mapa_teulada').on('tap', function(evt) {
+        $('#map').removeClass('right').addClass('center');
+        $('#' + whereiam).removeClass('center').addClass('left');
+        map = true;
+
+        alert('test');
+        
+        if (GMaps) alert('GMaps working');
+        else alert('GMaps not working');
+        GMaps.geolocate({
+          success: function(position){
+            lat = position.coords.latitude;  // guarda coords en lat y lng
+            lng = position.coords.longitude;
+            alert(lat, lng);
+
+            map = new GMaps({  // muestra mapa centrado en coords [lat, lng]
+              el: '#mapplace',
+              lat: lat,
+              lng: lng
+            });
+            map.addMarker({ 'lat': lat, 'lng': lng });  // marcador en [lat, lng]
+          },
+          error: function(error) { alert('Geolocalización falla: '+error.message); },
+          not_supported: function(){ alert("Su navegador no soporta geolocalización"); },
+        });
+    });
 
     $('#check_conn').on('tap', checkConnection);
 }
 function volverAtras() {
     if (videoPlayer) {
+        // alert('videoplayer');
         videoPlayer = false;
         $('#videoPlayer').removeClass('center').addClass('right');
         $('#' + whereiam).removeClass('left').addClass('center');
         // $('#videoPlayer > .content').html('');
+        return;
+    }
+    else if (map) {
+        // alert('map');
+        map = false;
+        $('#map').removeClass('center').addClass('right');
+        $('#' + whereiam).removeClass('left').addClass('center');
         return;
     }
     switch (whereiam) {
