@@ -63,7 +63,7 @@ function onLoad() {
             videoPlayer = true;
             $('#videoPlayer').removeClass('right').addClass('center');
             $('#' + whereiam).removeClass('center').addClass('left');
-            $('#videoPlayer > .content').html('<iframe width="100%" src="http://www.youtube.com/embed/u6RFyVN9sNg#autoplay=1" frameborder="0" allowfullscreen></iframe>');
+            $('#videoPlayer > .content').html('<iframe width="100%" src="http://www.youtube.com/embed/u6RFyVN9sNg#autoplay=1" frameborder="0" allowfullscreen></iframe><br><button onclick="window.plugins.socialsharing.share(\'Message only\')">Share</button><br><button onclick="window.plugins.socialsharing.canShareVia(\'whatsapp\', \'msg\', null, null, null, function(e){alert(e)}, function(e){alert(\'si\')})">is WhatsApp available?</button><br><button onclick="window.plugins.socialsharing.canShareVia(\'mms\', \'msg\', null, null, null, function(e){alert(\'no\')}, function(e){alert(e)})">is SMS available?</button>');
         }
     })
 

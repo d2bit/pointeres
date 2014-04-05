@@ -1,4 +1,6 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes.dex : \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing$1.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/app2.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$string.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$xml.class \

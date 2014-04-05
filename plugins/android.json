@@ -9,12 +9,16 @@
                 "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>": 1,
                 "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>": 1,
                 "<feature name=\"NetworkStatus\"><param name=\"android-package\" value=\"org.apache.cordova.networkinformation.NetworkManager\" /></feature>": 1,
-                "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /></feature>": 1
+                "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /></feature>": 1,
+                "<feature name=\"SocialSharing\"><param name=\"android-package\" value=\"nl.xservices.plugins.SocialSharing\" /></feature>": 1
             }
         },
         "AndroidManifest.xml": {
             "/*": {
                 "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />": 1
+            },
+            "/manifest": {
+                "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />": 1
             }
         }
     },
@@ -29,6 +33,9 @@
             "PACKAGE_NAME": "com.d2bit.app2"
         },
         "org.apache.cordova.splashscreen": {
+            "PACKAGE_NAME": "com.d2bit.app2"
+        },
+        "nl.x-services.plugins.socialsharing": {
             "PACKAGE_NAME": "com.d2bit.app2"
         }
     },
