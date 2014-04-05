@@ -174,7 +174,13 @@ ul,
 #poi > .header > .icon-poi {
     left: 55%;
 }
-
+/* PLAYER */
+#player {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+}
 /*BOTONES MENU*/
 ul {
     overflow: hidden;

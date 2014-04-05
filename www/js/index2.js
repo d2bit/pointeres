@@ -1,9 +1,16 @@
 $(window).on('load', onLoad);
 
-var myScroll;
 var whereiam;
+var myScroll;
 
 function onLoad() {
+
+    myScroll = new IScroll('.content', {
+        mouseWheel: false,
+        scrollbars: false,
+        tap: true
+    });
+
 	// alert("onLoad...");
 	$().ready(function() {
 		document.addEventListener("deviceready",
@@ -30,7 +37,7 @@ function onLoad() {
         }
     });
 
-    $('#nav_principal > li').on('tap', function(evt) { 
+    $('#principal li').on('tap', function(evt) { 
         // alert(this.innerText, $(this).attr('data-menu'));
 
         if (whereiam !== 'menu') {
@@ -44,7 +51,18 @@ function onLoad() {
 
     $('.boton-atras').on('tap', function(evt) {
         volverAtras();
+    });
+
+    $('#video_iglesia').on('tap', function() {
+        // $('#player').removeClass('right').addClass('center');
+        // cargaVideo('M7lc1UVf-VE');
+        // console.log('cargando video...');
+        if (checkConnection()) {
+            var player = window.open('http://www.youtube.com/embed/gAdOFQaP66A?list=UUvdmEDFj2FtEdyaOW8zSjIA', '_blank', 'location=no');
+        }
     })
+
+    $('#check_conn').on('tap', checkConnection);
 }
 function volverAtras() {
     switch (whereiam) {
@@ -63,11 +81,34 @@ function volverAtras() {
 function onDeviceReady() {
 	// alert('onDeviceReady...');
 
-    myScroll = new IScroll('#principal');
 }
 function onBackButton(evt) {
     // alert('onBackButton');
     if (volverAtras()) { // si estem en la principal tanquem la app
         navigator.app.exitApp();
     }
+}
+
+
+
+/* CHECK CONNECTION */
+function checkConnection() {
+    var networkState = navigator.connection.type;
+
+    var states = {};
+    states[Connection.UNKNOWN]  = 'Unknown connection';
+    // states[Connection.ETHERNET] = 'Ethernet connection';
+    // states[Connection.WIFI]     = 'WiFi connection';
+    // states[Connection.CELL_2G]  = 'Cell 2G connection';
+    // states[Connection.CELL_3G]  = 'Cell 3G connection';
+    // states[Connection.CELL_4G]  = 'Cell 4G connection';
+    // states[Connection.CELL]     = 'Cell generic connection';
+    states[Connection.NONE]     = 'No network connection';
+
+    // alert('Connection type: ' + states[networkState]);
+    if (networkState in states) {
+        alert('Debes conectar los datos para ver los videos..');
+        return false;
+    }
+    return true;
 }

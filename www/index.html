@@ -35,16 +35,16 @@
                     </div>
                     <div class="content">
                         <div id="mapa"></div>
-                        <ul id="nav_principal">
+                        <ul id="nav_principal" class='sombra'>
                             <li><div class="icon icon-qr"></div>Captura código QR</li>
                             <li data-menu='poi'><div class="icon icon-poi"></div>Puntos de interés</li>
-                            <li><div class="icon icon-mapa"></div>Mapas</li>
-                            <li><div class="icon icon-rutea"></div>Rutea</li>
+                            <li data-menu='maps'><div class="icon icon-mapa"></div>Mapas</li>
+                            <li data-menu='rutea'><div class="icon icon-rutea"></div>Rutea</li>
                         </ul>
                         <ul id="nav_secundario">
-                            <li><div class="icon icon-ocio"></div>Actividades y ocio</li>
-                            <li><div class="icon icon-gastro"></div>Gastro</li>
-                            <li><div class="icon icon-shopping"></div>Shopping</li>
+                            <li data-menu='ocio'><div class="icon icon-ocio"></div>Actividades y ocio</li>
+                            <li data-menu='gastro'><div class="icon icon-gastro"></div>Gastro</li>
+                            <li data-menu='shopping'><div class="icon icon-shopping"></div>Shopping</li>
                         </ul>
                     </div>
                 </div> <!-- fin principal-->
@@ -57,25 +57,125 @@
                     </div>
                     <div class="content">
                         <ul>
-                            <li>
+                            <li id='video_iglesia'>
                                 <div class="icon icon-marcador"></div>
                                 Iglesia Santa Catalina Mártir
                             </li>
-                            <li>
+                            <li id='video_castell' >
                                 <div class="icon icon-marcador"></div>
                                 Castell de Moraira
                             </li>
-                            <li>
+                            <li id='video_fontsanta'>
                                 <div class="icon icon-marcador"></div>
                                 Font Santa
                             </li>
-                            <li>
+                            <li id='video_capdor'>
                                 <div class="icon icon-marcador"></div>
                                 Torre vigía del Cap d'Or
                             </li>
                         </ul>
                     </div>
                 </div> <!-- fin poi-->
+
+                <div id="maps" class="page right">
+                    <div class="header">
+                        <div class="icon boton-atras"></div>
+                        <div class="icon icon-mapa"></div>
+                        <div class="title">Mapas</div>
+                    </div>
+                    <div class="content">
+                        <ul class='big'>
+                            <li id='mapa_teulada'>
+                                <div class="icon icon-maps"></div>
+                                Núcleo de Teulada
+                            </li>
+                            <li id='mapa_moraira'>
+                                <div class="icon icon-maps"></div>
+                                Núcleo de Moraira
+                            </li>
+                        </ul>
+                    </div>
+                </div> <!-- fin maps-->
+
+                <div id="rutea" class="page right">
+                    <div class="header">
+                        <div class="icon boton-atras"></div>
+                        <div class="icon icon-rutea"></div>
+                        <div class="title">Rutea</div>
+                    </div>
+                    <div class="content">
+                        <ul class='big'>
+                            <li id='rutea_teulada'>
+                                <div class="icon icon-maps"></div>
+                                Ruta del casco antiguo de Teulada
+                            </li>
+                            <li id='rutea_moraira'>
+                                <div class="icon icon-maps"></div>
+                                Ruta de la costa de Moraira
+                            </li>
+                            <li id='rutea_capdor'>
+                                <div class="icon icon-maps"></div>
+                                Ruta senderista del Cap d'Or
+                            </li>
+                            <li id='rutea_fonthorta'>
+                                <div class="icon icon-maps"></div>
+                                Ruta de la Font de l'Horta
+                            </li>
+                        </ul>
+                    </div>
+                </div> <!-- fin rutea -->
+
+                <div id="ocio" class="page right">
+                    <div class="header">
+                        <div class="icon boton-atras"></div>
+                        <div class="icon icon-ocio"></div>
+                        <div class="title">ocio</div>
+                    </div>
+                    <div class="content">
+                        <ul class='big'>
+                            <li id='ocio_pesca'>
+                                <div class="icon icon-maps"></div>
+                                Charters de pesca
+                            </li>
+                            <li id='ocio_buceo'>
+                                <div class="icon icon-maps"></div>
+                                Submarinismo
+                            </li>
+                        </ul>
+                    </div>
+                </div> <!-- fin ocio -->
+
+                <div id="gastro" class="page right">
+                    <div class="header">
+                        <div class="icon boton-atras"></div>
+                        <div class="icon icon-gastro"></div>
+                        <div class="title">gastro</div>
+                    </div>
+                    <div class="content">
+                        <ul class='big'>
+                            <li id='gastro_paella'>
+                                <div class="icon icon-maps"></div>
+                                Restaurante "La Paella"
+                            </li>
+                        </ul>
+                    </div>
+                </div> <!-- fin gastro -->
+
+                <div id="shopping" class="page right">
+                    <div class="header">
+                        <div class="icon boton-atras"></div>
+                        <div class="icon icon-shopping"></div>
+                        <div class="title">shopping</div>
+                    </div>
+                    <div class="content">
+                        <ul class='big'>
+                            <li id='shopping_teulada'>
+                                <div class="icon icon-maps"></div>
+                                Souvenirs Teulada-Moraira
+                            </li>
+                        </ul>
+                    </div>
+                </div> <!-- fin shopping -->
 
             </div>  <!-- fin subwrapper -->
 
@@ -99,9 +199,6 @@
             </ul>
         </div> <!-- fin menu-->
         
-        <!-- <script type="text/javascript" src="js/xui_base.js"></script>
-        <script type="text/javascript" src="js/xui_event.js"></script> -->
-        <!-- <script type="text/javascript" src="js/xui_style.js"></script> -->
         <script type="text/javascript" src="js/zepto.min.js"></script>
         <script type="text/javascript" src="js/touch.js"></script>
         <script type="text/javascript" src="js/fastclick.js"></script>
