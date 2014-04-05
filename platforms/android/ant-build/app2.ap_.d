@@ -87,6 +87,8 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/img/logo_header.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/img/icons40.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/img/pointeres_promo1_small.png \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/img/icon-maps.png \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/img/publi.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/img/icons30.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/img/logo_menu.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/img/pointeres_promo1.png \

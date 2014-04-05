@@ -127,7 +127,7 @@ body {
     margin: 15px 10px 0 0;
 }
 .footer {
-    background: url('../img/logo_header.png') center center no-repeat;
+    background: url('../img/publi.png') center center no-repeat;
     height: 70px;
     position: absolute;
     bottom: 0px;
@@ -179,7 +179,8 @@ ul {
 #rutea > .header > .icon-rutea,
 #ocio > .header > .icon-ocio,
 #gastro > .header > .icon-gastro,
-#shopping > .header > .icon-shopping  {
+#shopping > .header > .icon-shopping,
+#videoPlayer > .header > .icon-video  {
     left: 55%;
 }
 /* PLAYER */

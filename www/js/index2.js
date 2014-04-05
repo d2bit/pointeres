@@ -2,6 +2,7 @@ $(window).on('load', onLoad);
 
 var whereiam;
 var myScroll;
+var videoPlayer;
 
 function onLoad() {
 
@@ -58,13 +59,24 @@ function onLoad() {
         // cargaVideo('M7lc1UVf-VE');
         // console.log('cargando video...');
         if (checkConnection()) {
-            var player = window.open('http://www.youtube.com/embed/gAdOFQaP66A?list=UUvdmEDFj2FtEdyaOW8zSjIA', '_blank', 'location=no');
+            // videoPlayer = window.open('http://www.youtube.com/embed/gAdOFQaP66A?list=UUvdmEDFj2FtEdyaOW8zSjIA', '_self', 'location=no');
+            videoPlayer = true;
+            $('#videoPlayer').removeClass('right').addClass('center');
+            $('#' + whereiam).removeClass('center').addClass('left');
+            $('#videoPlayer > .content').html('<iframe width="100%" src="http://www.youtube.com/embed/u6RFyVN9sNg#autoplay=1" frameborder="0" allowfullscreen></iframe>');
         }
     })
 
     $('#check_conn').on('tap', checkConnection);
 }
 function volverAtras() {
+    if (videoPlayer) {
+        videoPlayer = false;
+        $('#videoPlayer').removeClass('center').addClass('right');
+        $('#' + whereiam).removeClass('left').addClass('center');
+        // $('#videoPlayer > .content').html('');
+        return;
+    }
     switch (whereiam) {
         case 'menu':
             $('#principal').removeClass('right').addClass('center');
