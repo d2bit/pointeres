@@ -38,11 +38,48 @@ function onLoad() {
             $('#menu').removeClass('center').addClass('left');
         }
     });
-
+window.lastClickTime = new Date().getTime();
     $('#principal li').on('tap', function(evt) { 
-        // alert(this.innerText, $(this).attr('data-menu'));
-
-        if (whereiam !== 'menu') {
+        //alert(this.innerText, $(this).attr('data-menu'));
+        var current = new Date().getTime();
+        var delta = current - lastClickTime;
+        if (delta < 400) break;
+        window.lastClickTime = current;
+        if ($(this).attr('data-menu') === 'scan') {
+            /*alert('scantab: '+ scantab);
+            if (scantab) break;
+            scantab++;*/
+            cordova.plugins.barcodeScanner.scan(
+                function (result) {
+                    /*alert("We got a barcode\n" +
+                        "Result: " + result.text + "\n" +
+                        "Format: " + result.format + "\n" +
+                        "Cancelled: " + result.cancelled);*/
+                    var splittedText = result.text.split('/');
+                    if (splittedText[2] !== 'www.pointeres.es') {
+                        alert('Código QR inválido 2');
+                    }
+                    else if (splittedText[3] === 'teulada') {
+                        if (splittedText[4] === 'iglesia') {
+                            if (checkConnection()) {
+                                // videoPlayer = window.open('http://www.youtube.com/embed/gAdOFQaP66A?list=UUvdmEDFj2FtEdyaOW8zSjIA', '_self', 'location=no');
+                                videoPlayer = true;
+                                $('#videoPlayer').removeClass('right').addClass('center');
+                                $('#principal').removeClass('center').addClass('left');
+                                $('#videoPlayer > .content').html('<iframe width="100%" src="http://www.youtube.com/embed/u6RFyVN9sNg#autoplay=1" frameborder="0" allowfullscreen></iframe><br><button onclick="window.plugins.socialsharing.share(\'Message only\')">Share</button><br><button onclick="window.plugins.socialsharing.canShareVia(\'whatsapp\', \'msg\', null, null, null, function(e){alert(\'si\')}, function(e){alert(e)})">is WhatsApp available?</button><br><button onclick="window.plugins.socialsharing.canShareVia(\'mms\', \'msg\', null, null, null, function(e){alert(\'si\')}, function(e){alert(e)})">is SMS available?</button>');
+                            }
+                        }
+                        else alert('Código QR inválido 4');
+                    }
+                    else alert('Código QR inválido 3');
+                }, 
+                function (error) {
+                    alert("Scanning failed: " + error);
+                }
+            );
+            //scantab = 0;
+        }
+        else if (whereiam !== 'menu') {
             whereiam = $(this).attr('data-menu');
             if (whereiam) {
                 $('#principal').removeClass('center').addClass('left');
@@ -101,7 +138,12 @@ function volverAtras() {
         // alert('videoplayer');
         videoPlayer = false;
         $('#videoPlayer').removeClass('center').addClass('right');
-        $('#' + whereiam).removeClass('left').addClass('center');
+        if (whereiam) {
+            $('#' + whereiam).removeClass('left').addClass('center');
+        }
+        else {
+            $('#principal').removeClass('left').addClass('center');
+        }
         // $('#videoPlayer > .content').html('');
         return;
     }

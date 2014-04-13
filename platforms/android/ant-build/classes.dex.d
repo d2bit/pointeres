@@ -1,6 +1,7 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes.dex : \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing$1.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/phonegap/plugins/barcodescanner/BarcodeScanner.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/phonegap/plugins/mapkit/MapKit$4.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/phonegap/plugins/mapkit/MapKit$5.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/phonegap/plugins/mapkit/MapKit$1.class \
@@ -10,6 +11,9 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/phonegap/plugins/mapkit/MapKit.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$id.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$color.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$menu.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$dimen.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$layout.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/app2.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$styleable.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$string.class \
@@ -18,7 +22,9 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/Manifest.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/BuildConfig.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$raw.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$integer.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$array.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$drawable.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/d2bit/app2/R$attr.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/geolocation/GPSListener.class \
@@ -63,4 +69,5 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/dexedLibs/classes-cee192427a6fe3b729326ab344046b95.jar \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/dexedLibs/classes-5e9be4842241e58a5940fd9c8612cebd.jar \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/dexedLibs/com.google.zxing.client.android.captureactivity-98bd6e085dc6ab9a5b072adde72aaa5b.jar \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/dexedLibs/google-play-services-b0f580109cbe9b8fa2c30c8ac6ef8871.jar \

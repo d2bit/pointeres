@@ -84,6 +84,13 @@ module.exports = [
         "clobbers": [
             "plugin.mapKit"
         ]
+    },
+    {
+        "file": "plugins/com.phonegap.plugins.barcodescanner/www/barcodescanner.js",
+        "id": "com.phonegap.plugins.barcodescanner.BarcodeScanner",
+        "clobbers": [
+            "cordova.plugins.barcodeScanner"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -95,7 +102,8 @@ module.exports.metadata =
     "org.apache.cordova.splashscreen": "0.2.7",
     "nl.x-services.plugins.socialsharing": "4.0.8",
     "org.apache.cordova.geolocation": "0.3.6",
-    "com.phonegap.plugins.mapkit": "0.9.3"
+    "com.phonegap.plugins.mapkit": "0.9.3",
+    "com.phonegap.plugins.barcodescanner": "1.0.1"
 }
 // BOTTOM OF METADATA
 });
