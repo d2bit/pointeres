@@ -91,6 +91,13 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.barcodeScanner"
         ]
+    },
+    {
+        "file": "plugins/com.phonegap.plugins.videoplayer/www/videoplayer.js",
+        "id": "com.phonegap.plugins.videoplayer.VideoPlayer",
+        "clobbers": [
+            "cordova.plugins.videoPlayer"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -103,7 +110,8 @@ module.exports.metadata =
     "nl.x-services.plugins.socialsharing": "4.0.8",
     "org.apache.cordova.geolocation": "0.3.6",
     "com.phonegap.plugins.mapkit": "0.9.3",
-    "com.phonegap.plugins.barcodescanner": "1.0.1"
+    "com.phonegap.plugins.barcodescanner": "1.0.1",
+    "com.phonegap.plugins.videoplayer": "1.0"
 }
 // BOTTOM OF METADATA
 });

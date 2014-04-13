@@ -2,6 +2,7 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing$1.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/phonegap/plugins/barcodescanner/BarcodeScanner.class \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/phonegap/plugins/videoplayer/VideoPlayer.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/phonegap/plugins/mapkit/MapKit$4.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/phonegap/plugins/mapkit/MapKit$5.class \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/classes/com/phonegap/plugins/mapkit/MapKit$1.class \

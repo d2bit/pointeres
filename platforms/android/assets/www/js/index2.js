@@ -63,10 +63,11 @@ window.lastClickTime = new Date().getTime();
                         if (splittedText[4] === 'iglesia') {
                             if (checkConnection()) {
                                 // videoPlayer = window.open('http://www.youtube.com/embed/gAdOFQaP66A?list=UUvdmEDFj2FtEdyaOW8zSjIA', '_self', 'location=no');
-                                videoPlayer = true;
+                                /*videoPlayer = true;
                                 $('#videoPlayer').removeClass('right').addClass('center');
                                 $('#principal').removeClass('center').addClass('left');
-                                $('#videoPlayer > .content').html('<iframe width="100%" src="http://www.youtube.com/embed/u6RFyVN9sNg#autoplay=1" frameborder="0" allowfullscreen></iframe><br><button onclick="window.plugins.socialsharing.share(\'Message only\')">Share</button><br><button onclick="window.plugins.socialsharing.canShareVia(\'whatsapp\', \'msg\', null, null, null, function(e){alert(\'si\')}, function(e){alert(e)})">is WhatsApp available?</button><br><button onclick="window.plugins.socialsharing.canShareVia(\'mms\', \'msg\', null, null, null, function(e){alert(\'si\')}, function(e){alert(e)})">is SMS available?</button>');
+                                $('#videoPlayer > .content').html('<iframe width="100%" src="http://www.youtube.com/embed/u6RFyVN9sNg#autoplay=1" frameborder="0" allowfullscreen></iframe>');*/
+                                cordova.plugins.videoPlayer.play('https://www.youtube.com/watch?v=9NDMq94lLGY');
                             }
                         }
                         else alert('Código QR inválido 4');

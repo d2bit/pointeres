@@ -323,6 +323,7 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/img/icons30.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/img/logo_menu.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/img/pointeres_promo1.png \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/com.phonegap.plugins.videoplayer \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/nl.x-services.plugins.socialsharing \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/com.phonegap.plugins.mapkit \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.network-information \
@@ -331,6 +332,8 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/com.phonegap.plugins.barcodescanner \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/org.apache.cordova.geolocation \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/com.phonegap.plugins.videoplayer/www \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/com.phonegap.plugins.videoplayer/www/videoplayer.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/nl.x-services.plugins.socialsharing/www \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/nl.x-services.plugins.socialsharing/www/SocialSharing.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/plugins/com.phonegap.plugins.mapkit/www \

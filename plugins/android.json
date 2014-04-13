@@ -12,7 +12,8 @@
                 "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /></feature>": 1,
                 "<feature name=\"SocialSharing\"><param name=\"android-package\" value=\"nl.xservices.plugins.SocialSharing\" /></feature>": 1,
                 "<feature name=\"Geolocation\"><param name=\"android-package\" value=\"org.apache.cordova.geolocation.GeoBroker\" /></feature>": 1,
-                "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>": 1
+                "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>": 1,
+                "<feature name=\"VideoPlayer\"><param name=\"android-package\" value=\"com.phonegap.plugins.videoplayer.VideoPlayer\" /></feature>": 1
             },
             "/widget": {
                 "<feature name=\"MapKit\"><param name=\"android-package\" value=\"com.phonegap.plugins.mapkit.MapKit\" /></feature>": 1
@@ -193,6 +194,9 @@
             "PACKAGE_NAME": "com.d2bit.app2"
         },
         "com.phonegap.plugins.barcodescanner": {
+            "PACKAGE_NAME": "com.d2bit.app2"
+        },
+        "com.phonegap.plugins.videoplayer": {
             "PACKAGE_NAME": "com.d2bit.app2"
         }
     },
