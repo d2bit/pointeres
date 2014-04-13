@@ -77,6 +77,13 @@ module.exports = [
         "clobbers": [
             "navigator.geolocation"
         ]
+    },
+    {
+        "file": "plugins/com.phonegap.plugins.mapkit/www/MapKit.js",
+        "id": "com.phonegap.plugins.mapkit.mapkit",
+        "clobbers": [
+            "plugin.mapKit"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -87,7 +94,8 @@ module.exports.metadata =
     "org.apache.cordova.network-information": "0.2.7",
     "org.apache.cordova.splashscreen": "0.2.7",
     "nl.x-services.plugins.socialsharing": "4.0.8",
-    "org.apache.cordova.geolocation": "0.3.6"
+    "org.apache.cordova.geolocation": "0.3.6",
+    "com.phonegap.plugins.mapkit": "0.9.3"
 }
 // BOTTOM OF METADATA
 });
