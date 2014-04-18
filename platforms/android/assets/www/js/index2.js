@@ -1,6 +1,5 @@
 
-        document.addEventListener("deviceready",
-            onLoad, false);
+document.addEventListener("deviceready", onLoad, false);
         // alert($);
 // $(window).on('load', onLoad);
 // alert('test');
@@ -16,28 +15,55 @@ var map = false;
 function onLoad() {
 // alert('loading...');
 rechargeLang();
-    myScroll = new IScroll('.content', {
-        mouseWheel: false,
-        scrollbars: false,
-        tap: true
-    });
+myScroll = new IScroll('.content', {
+    mouseWheel: false,
+    scrollbars: false,
+    tap: true
+});
 
 	// alert("onLoad...");
 	$().ready(function() {
 		// document.addEventListener("deviceready",
 		// 	onDeviceReady, false);
-        document.addEventListener("backbutton",
-            onBackButton, false);
-	});
+    document.addEventListener("backbutton",
+        onBackButton, false);
+});
     // onDeviceReady(); //sobra
 
     FastClick.attach(document.body);
+    
+    /* geolocation based on network */
+    navigator.geolocation.getCurrentPosition( // network
+        function(position) {
+            window.lat = position.coords.latitude;
+            window.lng = position.coords.longitude;
+            alert('network: ' + window.lat + ' <-> ' + window.lng);
+        },
+        function(error) {
+            alert('code: ' + error.code + '\n' + 'message: ' + error.menssage + '\n');
+        });
 
-    if (GMaps) {
+    /* geolocating with gps */
+    navigator.geolocation.getCurrentPosition( // GPS
+        function(position) {
+            window.lat = position.coords.latitude;
+            window.lng = position.coords.longitude;
+            alert('GPS: ' + window.lat + ' <-> ' + window.lng);
+        },
+        function(error) {
+            alert('code: ' + error.code + '\n' + 'message: ' + error.menssage + '\n');
+        },
+        {
+            maximumAge: 10 * 60 * 1000,
+            timeout: 3 * 60 * 1000,
+            enableHighAccuracy: true
+        });
+
+    /*if (GMaps) {
         GMaps.geolocate({
             success: function(position){
-                window.lat = position.coords.latitude;  // guarda coords en lat y lng
-                window.lng = position.coords.longitude;
+                window.lat2 = position.coords.latitude;  // guarda coords en lat y lng
+                window.lng2 = position.coords.longitude;
                 // alert(lat, lng);
             },
             error: function(error) { alert('Geolocalización falla: '+error.message); },
@@ -45,21 +71,32 @@ rechargeLang();
         });
     }
     else alert('GMaps not working');
+    */
 
     // EVENTOS
-    $('.icon-menu').on('click', function(evt) {
+    $('.icon-menu').on('tap', function(evt) {
         if ($('#principal').hasClass('center')) {
-            whereiam = 'menu';
-            $('#principal').removeClass('center').addClass('right');
-            $('#menu').removeClass('left').addClass('center');
+            evt.stopPropagation();
         }
-        else {
+        whereiam = 'menu';
+        $('#principal').removeClass('center').addClass('right');
+        $('#menu').removeClass('left').addClass('center');
+
+        $('#principal').one('tap', function(e) {
+            e.stopPropagation();
             whereiam = undefined;
             $('#principal').removeClass('right').addClass('center');
             $('#menu').removeClass('center').addClass('left');
-        }
+        });
+        // }
+        /*else {
+            whereiam = undefined;
+            $('#principal').removeClass('right').addClass('center');
+            $('#menu').removeClass('center').addClass('left');
+        }*/
     });
-window.lastClickTime = new Date().getTime();
+
+    window.lastClickTime = new Date().getTime();
     $('#principal li').on('tap', function(evt) { 
         //alert(this.innerText, $(this).attr('data-menu'));
         var current = new Date().getTime();
@@ -78,16 +115,16 @@ window.lastClickTime = new Date().getTime();
                         "Result: " + result.text + "\n" +
                         "Format: " + result.format + "\n" +
                         "Cancelled: " + result.cancelled);*/
-                    if (result.cancelled) {
-                        return;
-                    }
-                    var splittedText = result.text.split('/');
-                    if (splittedText[2] !== 'www.pointeres.es') {
-                        alert('Código QR inválido 2');
-                    }
-                    else if (splittedText[3] === 'teulada') {
-                        if (splittedText[4] === 'iglesia') {
-                            if (checkConnection()) {
+if (result.cancelled) {
+    return;
+}
+var splittedText = result.text.split('/');
+if (splittedText[2] !== 'www.pointeres.es') {
+    alert('Código QR inválido 2');
+}
+else if (splittedText[3] === 'teulada') {
+    if (splittedText[4] === 'iglesia') {
+        if (checkConnection()) {
                                 // videoPlayer = window.open('http://www.youtube.com/embed/gAdOFQaP66A?list=UUvdmEDFj2FtEdyaOW8zSjIA', '_self', 'location=no');
                                 /*videoPlayer = true;
                                 $('#videoPlayer').removeClass('right').addClass('center');
@@ -103,7 +140,7 @@ window.lastClickTime = new Date().getTime();
                 function (error) {
                     alert("Scanning failed: " + error);
                 }
-            );
+                );
             //scantab = 0;
         }
         else if (whereiam !== 'menu') {
@@ -115,11 +152,11 @@ window.lastClickTime = new Date().getTime();
         }
     });
 
-    $('.boton-atras').on('tap', function(evt) {
-        volverAtras();
-    });
+$('.boton-atras').on('tap', function(evt) {
+    volverAtras();
+});
 
-    $('#video_iglesia').on('tap', function() {
+$('#video_iglesia').on('tap', function() {
         // $('#player').removeClass('right').addClass('center');
         // cargaVideo('M7lc1UVf-VE');
         // console.log('cargando video...');
@@ -132,20 +169,20 @@ window.lastClickTime = new Date().getTime();
             cordova.plugins.videoPlayer.play('https://www.youtube.com/watch?v=9NDMq94lLGY');
         }
     });
-    $('#video_castell').on('tap', function() {
-        if (checkConnection()) {
-            cordova.plugins.videoPlayer.play('https://www.youtube.com/watch?v=IE_Z_0-zOY4');
-        }
-    });
-    $('#video_fontsanta').on('tap', function() {
-        if (checkConnection()) {
-            cordova.plugins.videoPlayer.play('https://www.youtube.com/watch?v=rC7Wm57H3Dg');
-        }
-    });
-    $('#mapa_teulada').on('tap', function(evt) {
-        $('#map').removeClass('right').addClass('center');
-        $('#' + whereiam).removeClass('center').addClass('left');
-        map = true;
+$('#video_castell').on('tap', function() {
+    if (checkConnection()) {
+        cordova.plugins.videoPlayer.play('https://www.youtube.com/watch?v=IE_Z_0-zOY4');
+    }
+});
+$('#video_fontsanta').on('tap', function() {
+    if (checkConnection()) {
+        cordova.plugins.videoPlayer.play('https://www.youtube.com/watch?v=rC7Wm57H3Dg');
+    }
+});
+$('#mapa_teulada').on('tap', function(evt) {
+    $('#map').removeClass('right').addClass('center');
+    $('#' + whereiam).removeClass('center').addClass('left');
+    map = true;
 
         // alert('test');
         
@@ -154,14 +191,16 @@ window.lastClickTime = new Date().getTime();
               el: '#mapplace',
               lat: window.lat,
               lng: window.lng
-            });
+          });
             map.addMarker({ 'lat': window.lat, 'lng': window.lng });  // marcador en [lat, lng]
         }
     });
 
-    $('#check_conn').on('tap', checkConnection);
+$('#check_conn').on('tap', checkConnection);
 
     $('#menu li[data-menu=idioma]').on('tap', function(e) { // !!!
+        $('#popup').addClass('popup-show');
+        /*
         if (storage.lang == 0) {
             changeLang('es');
         }
@@ -169,7 +208,18 @@ window.lastClickTime = new Date().getTime();
             changeLang('en');
         }
         volverAtras();
+        */
+    });
+    $('#lang-es').on('tap', function() {
+        changeLang('es');
+    });
+    $('#lang-en').on('tap', function() {
+        changeLang('en');
+    });
+    $('#popup').on('tap', function() {
+        $('#popup').removeClass('popup-show');
     })
+
 }
 function volverAtras() {
     if (videoPlayer) {
@@ -194,25 +244,25 @@ function volverAtras() {
     }
     switch (whereiam) {
         case 'menu':
-            $('#principal').removeClass('right').addClass('center');
-            $('#menu').removeClass('center').addClass('left');
-            break;
+        $('#principal').removeClass('right').addClass('center');
+        $('#menu').removeClass('center').addClass('left');
+        break;
         case undefined:
-            return true;
+        return true;
         default:
-            $('#principal').removeClass('left').addClass('center');
-            $('#' + whereiam).removeClass('center').addClass('right');
+        $('#principal').removeClass('left').addClass('center');
+        $('#' + whereiam).removeClass('center').addClass('right');
     }
     whereiam = undefined;
 }
 function onDeviceReady() {
 	 // alert('onDeviceReady...');
 
-            $('#principal').removeClass('center').addClass('right');
-            $('#menu').removeClass('left').addClass('center');
+            // $('#principal').removeClass('center').addClass('right');
+            // $('#menu').removeClass('left').addClass('center');
 
-}
-function onBackButton(evt) {
+        }
+        function onBackButton(evt) {
     // alert('onBackButton');
     if (volverAtras()) { // si estem en la principal tanquem la app
         navigator.app.exitApp();
@@ -250,7 +300,16 @@ https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin
 /* STATS */
 storage = window.localStorage;
 // alert('Identificado con: '+ storage.getItem('id'));
-if (!storage.getItem('id')) {
+
+if (storage.getItem('id') === null) { // first time app is opened
+    var lang = window.navigator.language.split('-')[0];
+    changeLang (lang); // save lang info and change lang
+    storage.setItem('platform', cordova.platformId); // save platform info
+    storage.setItem('id', '');
+}
+
+if (!storage.getItem('id')) { // don't have id set
+    // xhr to get id
     storage.setItem('id', 17);
     var opStats = [];
     storage.setItem('opened', JSON.stringify(opStats));
@@ -261,29 +320,27 @@ opStats.push(+new Date());
 storage.setItem('opened', JSON.stringify(opStats));
 
 
-if (!storage.lang) { // first time app is opened
-    var lang = window.navigator.language.split('-')[0];
-    changeLang (lang);
-    var platform = 'android'; // add platform information and ask for an id.
-}
+
 
 function changeLang(lang) {
     var arr = ['en', 'es']
     var pos = arr.indexOf(lang);
     if (pos === -1) {
-        storage.lang = 0;
+        storage.setItem('lang', 0);
     }
     else if (pos !== db.lang) {
-        storage.lang = pos;
+        storage.setItem('lang', pos);
     }
-    // storage.lang = window.db.lang;
     rechargeLang();
 }
 
 function rechargeLang() {
+    window.menu = db.translation[storage.lang].menu;
     window.text = db.translation[storage.lang].text;
-    $('li[data-menu=scan]').contents().last()[0].textContent=(window.text[0]);
-    $('li[data-menu=poi]').contents().last()[0].textContent=(window.text[1]);
-    $('li[data-menu=maps]').contents().last()[0].textContent=(window.text[2]);
-    $('li[data-menu=rutea]').contents().last()[0].textContent=(window.text[3]);
+    $('#menu li').each(function(index, item) {
+        $(item).contents().last()[0].textContent = window.menu[index];
+    });
+    $('#principal li').each(function(index, item) {
+        $(item).contents().last()[0].textContent = window.text[index];
+    });
 }
