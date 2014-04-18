@@ -55,6 +55,20 @@ body {
     }
 }
 
+@media (min-width:459px) {
+    body {
+        font-size: 2em;
+    }
+    ul > li {
+        display: block;
+        list-style: none;
+        /*height: 35px;*/
+        border-top: 1px solid #333;
+        padding: .8em 0 .8em 3.5em;
+        position: relative;
+    }
+}
+
 
 /* d2bit */
 * {
