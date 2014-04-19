@@ -11,15 +11,17 @@ var whereiam;
 var myScroll;
 var videoPlayer = false;
 var map = false;
+var popuplang = false;
 
 function onLoad() {
 // alert('loading...');
 rechargeLang();
-myScroll = new IScroll('.content', {
+
+/*myScroll = new IScroll('.content', {
     mouseWheel: false,
     scrollbars: false,
     tap: true
-});
+});*/
 
 	// alert("onLoad...");
 	$().ready(function() {
@@ -84,6 +86,7 @@ myScroll = new IScroll('.content', {
 
         $('#principal').one('tap', function(e) {
             e.stopPropagation();
+            console.log('#pricipal on tap when menu visible');
             whereiam = undefined;
             $('#principal').removeClass('right').addClass('center');
             $('#menu').removeClass('center').addClass('left');
@@ -96,15 +99,15 @@ myScroll = new IScroll('.content', {
         }*/
     });
 
-    window.lastClickTime = new Date().getTime();
+    // window.lastClickTime = new Date().getTime();
     $('#principal li').on('tap', function(evt) { 
         //alert(this.innerText, $(this).attr('data-menu'));
-        var current = new Date().getTime();
-        var delta = current - lastClickTime;
-        if (delta < 400) {
-            return;
-        }
-        window.lastClickTime = current;
+        // var current = new Date().getTime();
+        // var delta = current - lastClickTime;
+        // if (delta < 400) {
+        //     return;
+        // }
+        // window.lastClickTime = current;
         if ($(this).attr('data-menu') === 'scan') {
             /*alert('scantab: '+ scantab);
             if (scantab) break;
@@ -156,19 +159,27 @@ $('.boton-atras').on('tap', function(evt) {
     volverAtras();
 });
 
+$('li').on('tap', function(e) {
+    console.log('li on tap');
+    var el = $(this);
+    var where = el.attr('data-menu') || el.attr('id') || el.parent().attr('id');
+    /*console.log (
+        'data-menu: ' + el.attr('data-menu') +
+        '\nid: ' + el.attr('id') +
+        '\nparent-id: ' + el.parent().attr('id')
+        );*/
+    // console.log(where);
+    if (window.whereiam && window.whereiam === 'menu' && el.parent().parent().attr('id') !== 'menu') {
+        return;
+    }
+    sendClick(where);
+});
+
 $('#video_iglesia').on('tap', function() {
-        // $('#player').removeClass('right').addClass('center');
-        // cargaVideo('M7lc1UVf-VE');
-        // console.log('cargando video...');
-        if (checkConnection()) {
-            // videoPlayer = window.open('http://www.youtube.com/embed/gAdOFQaP66A?list=UUvdmEDFj2FtEdyaOW8zSjIA', '_self', 'location=no');
-            /*videoPlayer = true;
-            $('#videoPlayer').removeClass('right').addClass('center');
-            $('#' + whereiam).removeClass('center').addClass('left');
-            $('#videoPlayer > .content').html('<iframe width="100%" src="http://www.youtube.com/embed/u6RFyVN9sNg#autoplay=1" frameborder="0" allowfullscreen></iframe><br><button onclick="window.plugins.socialsharing.share(\'Message only\')">Share</button><br><button onclick="window.plugins.socialsharing.canShareVia(\'whatsapp\', \'msg\', null, null, null, function(e){alert(\'si\')}, function(e){alert(e)})">is WhatsApp available?</button><br><button onclick="window.plugins.socialsharing.canShareVia(\'mms\', \'msg\', null, null, null, function(e){alert(\'si\')}, function(e){alert(e)})">is SMS available?</button>');*/
-            cordova.plugins.videoPlayer.play('https://www.youtube.com/watch?v=9NDMq94lLGY');
-        }
-    });
+    if (checkConnection()) {
+        cordova.plugins.videoPlayer.play('https://www.youtube.com/watch?v=9NDMq94lLGY');
+    }
+});
 $('#video_castell').on('tap', function() {
     if (checkConnection()) {
         cordova.plugins.videoPlayer.play('https://www.youtube.com/watch?v=IE_Z_0-zOY4');
@@ -199,6 +210,7 @@ $('#mapa_teulada').on('tap', function(evt) {
 $('#check_conn').on('tap', checkConnection);
 
     $('#menu li[data-menu=idioma]').on('tap', function(e) { // !!!
+        popuplang = true;
         $('#popup').addClass('popup-show');
         /*
         if (storage.lang == 0) {
@@ -217,6 +229,7 @@ $('#check_conn').on('tap', checkConnection);
         changeLang('en');
     });
     $('#popup').on('tap', function() {
+        popuplang = false;
         $('#popup').removeClass('popup-show');
     })
 
@@ -240,6 +253,11 @@ function volverAtras() {
         map = false;
         $('#map').removeClass('center').addClass('right');
         $('#' + whereiam).removeClass('left').addClass('center');
+        return;
+    }
+    else if (popuplang) {
+        popuplang = false;
+        $('#popup').removeClass('popup-show');
         return;
     }
     switch (whereiam) {
@@ -310,7 +328,8 @@ if (storage.getItem('id') === null) { // first time app is opened
 
 if (!storage.getItem('id')) { // don't have id set
     // xhr to get id
-    storage.setItem('id', 17);
+    //storage.setItem('id', 17);
+    sendHello();
     var opStats = [];
     storage.setItem('opened', JSON.stringify(opStats));
 }
@@ -319,7 +338,57 @@ var opStats = opStats || JSON.parse(storage.getItem('opened'));
 opStats.push(+new Date());
 storage.setItem('opened', JSON.stringify(opStats));
 
-
+function sendHello() {
+    if (!checkConnection()) {
+        return false;
+    }
+    $.ajax({
+        type: 'POST',
+        url: db.server + '/hello',
+        data: {
+            "platform": storage.getItem('platform'),
+            "lang" : storage.getItem('lang')
+        },
+        dataType: 'json',
+        success: function(data, status, xhr) {
+            console.log('status: ' + status + '\ndata: ' + JSON.stringify(data));
+            window.helloResponse = {
+                data: data,
+                status: status,
+                xhr: xhr
+            };
+            storage.setItem('id', data.id);
+        },
+        error: function(xhr, errorType, error) {
+        console.error('errorType: ' + errorType + '\nerror: ' + error);
+        }
+    });
+}
+function sendClick(where) {
+    if (!checkConnection()) {
+        return false;
+    }
+    $.ajax({
+        type: 'POST',
+        url: db.server + '/click',
+        data: {
+            "id": storage.getItem('id'),
+            "info" : where
+        },
+        dataType: 'json',
+        success: function(data, status, xhr) {
+            console.log('status: ' + status + '\ndata: ' + JSON.stringify(data));
+            window.clickResponse = {
+                data: data,
+                status: status,
+                xhr: xhr
+            };
+        },
+        error: function(xhr, errorType, error) {
+        console.error('errorType: ' + errorType + '\nerror: ' + error);
+        }
+    });
+}
 
 
 function changeLang(lang) {

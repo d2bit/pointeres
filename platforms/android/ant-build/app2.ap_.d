@@ -304,7 +304,6 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/MapKit.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/db.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/iscroll.js \
-/home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/jquery.magnific-popup.min.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/index2.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/js/gmaps.js \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/assets/www/css/index.css \
