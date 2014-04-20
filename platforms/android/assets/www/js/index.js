@@ -1,78 +1,440 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+var debug = {};
+
 var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-        document.addEventListener('error', function(evt) {
-            alert('Error! '+ evt);
-        });
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-            // new FastClick(document.body);
-            // var myScroll = new IScroll('#content');
+  // Application Constructor
+  initialize: function() {
+    this.bindEvents();
+  },
+  // Bind Event Listeners
+  //
+  // Bind any events that are required on startup. Common events are:
+  // 'load', 'deviceready', 'offline', and 'online'.
+  bindEvents: function() {
+    document.addEventListener('deviceready', app.onDeviceReady, false);
+    // document.addEventListener('backbutton', app.onBackButton, false);
+    // document.addEventListener('menubutton', app.onMenuButton, false);
+    document.addEventListener('error', function(e) {
+      console.error('Error! ' + e);
+    });
+  },
+  // deviceready Event Handler
+  //
+  // The scope of 'this' is the event. In order to call the 'receivedEvent'
+  // function, we must explicity call 'app.receivedEvent(...);'
+  onDeviceReady: function(e) {
+    document.addEventListener('backbutton', app.onBackButton, false);
+    document.addEventListener('menubutton', app.onMenuButton, false);
 
-            // document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+    app.loadConfig();
+    app.setUptimer(db.timer); // default 10secs
+    app.server = 'http://' + app.domain + ':3000';
+    
+    app.attachEvents();
 
-            
-            // new IScroll('#content', { scrollY: false, scrollbars: false});
-
-            alert(id + " 1");
-
-            // x$.ready(function(){
-                    alert('xui is ready');
-                /*x$('#header').on('touchstart', function(evt) {
-                    if (x$('#principal').hasClass('center')) {
-                        console.log('click on header - muestra menu');
-                        x$('#principal').removeClass('center').addClass('right');
-                        x$('#menu').removeClass('left').addClass('center');
-                    }
-                    else {
-                        console.log('click on header - oculta menu');
-                        x$('#principal').removeClass('right').addClass('center');
-                        x$('#menu').removeClass('center').addClass('left');
-                    }
-                });
-            // });*/
-            x$('#nav_principal > li').on('touchstart', function(evt) { 
-                // console.log(this.innerText);
-                alert(this.innerText);
-            });
-            document.getElementById('header').addEventListener('touchstart', function() {
-                alert('click en el header');
-            }, false);
-
-            alert(id + ' 2');
+    if (!app.hasId()) {
+      app.getId();
     }
+    app.sendHello();
+
+    app.getGeoLocation();
+  },
+  onBackButton: function(e) {
+    // console.log('onBackButton');
+    var whereIWas = app.whereIAm.pop();
+    if (!whereIWas) {
+      // console.log('whereIWas: ' + whereIWas + '\nwhereIAm: ' + app.whereIAm);
+      navigator.app.exitApp();
+    }
+    var going = app.whereIAm[app.whereIAm.length - 1] || 'principal';
+
+    if (whereIWas === 'popup') {
+      $('#popup').removeClass('popup-show');
+    }
+    else if (whereIWas === 'menu') {
+      $('#' + whereIWas).removeClass('center').addClass('left');
+      $('#' + going).removeClass('right').addClass('center');
+    }
+    else {
+      $('#' + whereIWas).removeClass('center').addClass('right');
+      $('#' + going).removeClass('left').addClass('center');
+    }
+  },
+  onMenuButton: function(e) {
+    // console.log('onMenuButton');
+    if (app.whereIAm.length === 0) {
+      $('#principal').removeClass('center').addClass('right');
+      $('#menu').removeClass('left').addClass('center');
+      app.whereIAm.push('menu');
+    }
+    else if (app.whereIAm[app.whereIAm.length - 1] === 'menu') {
+      app.onBackButton();
+    }
+  },
+  // Update DOM on a Received Event
+  // receivedEvent: function(id) {
+
+  // },
+  hasConnection: function() {
+    var netState = navigator.connection && navigator.connection.type;
+    var states = {
+      'Connection.UNKNOWN':'Unknown connection',
+      'Connection.NONE': 'No network connection'
+    };
+
+    if (netState in states) {
+      return false;
+    }
+    return true;
+  },
+  hasId: function() {
+    return !!localStorage.getItem('id');
+  },
+  getId: function() {
+    if (!app.hasConnection()) {
+      return false;
+    }
+    $.ajax({
+      type: 'POST',
+      url: app.server + '/hello',
+      data: {
+        "platform": cordova.platformId,
+        "lang" : db.translationLocales[app.config.lang]
+      },
+      dataType: 'json',
+      success: function(data, status, xhr) {
+        if (debug) {
+          debug.helloResponse = {
+            data: data,
+            status: status,
+            xhr: xhr
+          };
+        }
+        localStorage.setItem('id', data.id);
+        app.id = data.id;
+      },
+      error: function(xhr, errorType, error) {
+        if (debug) {
+          debug.helloResponse = {
+            xhr: xhr,
+            errorType: errorType,
+            error: error
+          };
+        }
+      }
+    });
+  },
+  sendHello: function() {
+    if (debug) {
+      debug.sendHello = {
+        id: app.id,
+        saved: app.saved
+      };
+    }
+    if (!app.hasConnection()) {
+      return app.saveInfo('open', app.uptime);
+    }
+    $.ajax({
+      type: 'POST',
+      url: app.server + '/open',
+      data: {
+        id: app.id,
+        lang: app.lang,
+        uptime: app.uptime,
+        saved: localStorage.getItem('saved')
+      },
+      dataType: 'json',
+      success: function(data, status, xhr) {
+        if (debug) {
+          debug.openResponse = {
+            data: data,
+            status: status,
+            xhr: xhr
+          };
+        }
+        if (data.msg === 'Ok') {
+          app.clearSaved();
+        }
+      },
+      error: function(xhr, errorType, error) {
+        if (debug) {
+          debug.openResponse = {
+            xhr: xhr,
+            errorType: errorType,
+            error: error
+          };
+        }
+        var err = JSON.parse(xhr.responseText).error;
+        if (err === 'user not found') {
+          app.getId();
+        }
+        app.saveInfo('open', app.uptime);
+      }
+    });
+  },
+  sendClick: function(data) {
+    if (debug) {
+      debug.sendClick = {
+        hasConnection: app.hasConnection(),
+        data: data
+      };
+    }
+    if (!app.hasConnection()) {
+      return saveInfo('click', data);
+    }
+    $.ajax({
+      type: 'POST',
+      url: app.server + '/click',
+      data: {
+        "id": app.id,
+        "lang": app.lang,
+        "info" : data
+      },
+      dataType: 'json',
+      success: function(data, status, xhr) {
+        if (debug) {
+          debug.clickResponse = {
+            data: data,
+            status: status,
+            xhr: xhr
+          };
+        }
+      },
+      error: function(xhr, errorType, error) {
+        if (debug) {
+          debug.helloResponse = {
+            xhr: xhr,
+            errorType: errorType,
+            error: error
+          };
+        }
+        saveInfo('click', data);
+      }
+    });
+  },
+  saveInfo: function(from, data) {
+    app.saved.push({
+      from: from,
+      timestamp: +new Date(),
+      data: data
+    });
+    localStorage.setItem('saved', JSON.stringify(app.saved));
+  },
+  clearSaved: function() {
+    app.saved = {};
+    localStorage.setItem('saved', '');
+  },
+  changeLang: function(lang) {
+    var pos = db.translationLocales.indexOf(lang);
+    if (pos === -1) {
+      app.config.lang = 0; // default English
+    }
+    else {
+      app.config.lang = pos;
+    }
+    localStorage.setItem('lang', app.config.lang);
+    app.rechargeLang();
+  },
+  rechargeLang: function() {
+    app.translation = db.translation[app.lang];
+    
+    $('#menu li').each(function(index, item) {
+        $(item).contents().last()[0].textContent = app.translation.menu[index];
+    });
+    $('#principal li').each(function(index, item) {
+        $(item).contents().last()[0].textContent = app.translation.principal[index];
+    });
+  },
+  getGeoLocation: function() {
+    if (app.config.gps) {
+      navigator.geolocation.getCurrentPosition( // GPS
+        function(position) {
+          app.coords = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          if (debug) {
+            debug.coords = position.coords;
+          }
+          console.log('(GPS) lat: ' + app.coords.lat + '\tlng: ' + app.coords.lng);
+        },
+        function(error) {
+          console.error('code: ' + error.code + '\n' + 'message: ' + error.message);
+        },
+        {
+          // maximumAge: 10 * 60 * 1000,
+          // timeout: 3 * 60 * 1000,
+          enableHighAccuracy: true
+        }
+      );
+    }
+   navigator.geolocation.getCurrentPosition( // NETWORK
+      function(position) {
+        app.coords = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        if (debug) {
+          debug.coords = position.coords;
+        }
+        console.log('(NET) lat: ' + app.coords.lat + '\tlng: ' + app.coords.lng);
+      },
+      function(error) {
+        console.error('code: ' + error.code + '\n' + 'message: ' + error.message);
+      }
+    );
+  },
+  loadConfig: function() {
+    //load config from localStorage
+    if (!app.config) { //default settings
+      app.config = {
+        gps: true
+      };
+    }
+    app.lang = localStorage.getItem('lang') || navigator.language.split('-')[0];
+    app.id = localStorage.getItem('id');
+    app.uptime = +localStorage.getItem('uptime');
+
+    app.rechargeLang();
+  },
+  setUptimer: function(time) {
+    app.timer = setInterval(function() {
+      app.uptime += +time;
+      localStorage.setItem('uptime', app.uptime);
+    }, time);
+  },
+  captureQr: function() {
+    cordova.plugins.barcodeScanner.scan(function(result) {
+      if (result.cancelled) {
+        return app.errcode.QRCANCEL;
+      }
+      var link = getQrLink(result.text);
+      if (!link) {
+        return app.errcode.QRBAD;
+      }
+      if (!app.hasConnection()) {
+        return app.errcode.NOCONNECTION;
+      }
+      cordova.plugins.videoPlayer.play(link);
+    });
+  },
+  getQrLink: function(text) {
+    var spltd = text.split('/');
+    if (spltd[2] !== app.domain) {
+      return false;
+    }
+    if (spltd[3] in db.qrLinks && spltd[4] in db.qrLinks[spltd[3]]) {
+      return false;
+    }
+    return db.qrLinks[spltd[3]][spltd[4]];
+  },
+  playVideo: function(link) {
+    cordova.plugins.videoPlayer.play(link);
+  },
+  showMap: function(mapName) {
+    if (!app.hasConnection()) {
+      if (debug) {
+        console.error('no connection from showMap');
+      }
+      return app.errcode.NOCONNECTION;
+    }
+    else if (!GMaps) {
+      if (debug) {
+        console.error('no GMaps from showMap');
+      }
+      return app.errcode.NOGMAPS;
+    }
+    var mapInfo = app.getMapInfo(mapName);
+    // lastMapInfo == mapInfo? !!!
+    if (!mapInfo) {
+      if (debug) {
+        debug.mapName = mapName;
+        debug.mapInfo = mapInfo;
+        console.error('no mapinfo found');
+      }
+      return app.errcode.NOMAPINFO;
+    }
+    map = new GMaps({
+      el: '#mapplace',
+      lat: mapInfo.lat || app.coords.lat,
+      lng: mapInfo.lng || app.coords.lng
+    });
+    var markers = mapInfo.markers.slice(0);
+    // console.log(mapInfo.markers);
+    console.log(markers);
+    // map.addMarkers(markers);
+
+    $('#map').removeClass('right').addClass('center');
+    $('#' + app.whereIAm[app.whereIAm.length - 1]).removeClass('center').addClass('left');
+    app.whereIAm.push('map');
+  },
+  getMapInfo: function(mapName) {
+    return db.mapInfo && db.mapInfo[mapName];
+  },
+  attachEvents: function() {
+    $('li').on('tap', function(e) {
+      var data = $(this).attr('data-menu') || $(this).attr('id') || $(this).parent().attr('id');
+
+      app.sendClick(data);
+      
+      if (app.whereIAm.length === 0) {
+        if (data === 'scan') {
+          return app.captureQr();
+        }
+        app.whereIAm.push(data);
+        $('#principal').removeClass('center').addClass('left');
+        $('#' + data).removeClass('right').addClass('center');
+      }
+      else {
+        spltd = data.split('_');
+        if (spltd[0] === 'video') {
+          var link = db.qrLinks.teulada[spltd[1]];
+          if (link) {
+            app.playVideo(link);
+          }
+          else {
+            console.error('video no encontrado\ndata: ' + data);
+          }
+        }
+        else if (spltd[0] === 'mapa') {
+          app.showMap(spltd[1]);
+        }
+        else if (data === 'idioma') {
+          $('#popup').addClass('popup-show');
+          app.whereIAm.push('popup');
+        }
+        else if (data === 'popup') {
+          app.onBackButton();
+        }
+        else if (data.indexOf('lang') === 0) {
+          e.stopPropagation();
+          app.changeLang(data.substr(5,2));
+          app.onBackButton();
+        }
+      }
+    });
+    $('#popup').on('tap', function(e) {
+      app.onBackButton();
+    });
+    $('.icon-menu').on('tap', function(e) {
+      app.onMenuButton();
+    });
+    $('.boton-atras').on('tap', function(e) {
+      app.onBackButton();
+    });
+  },
+  errcode: {
+    NOCONNECTION: 11,
+    QRCANCEL: 21,
+    QRBAD: 22,
+    NOGMAPS: 31,
+    NOMAPINFO: 32
+  },
+  domain: 'd2bit.net',
+  // domain: 'www.pointeres.es',
+  // domain: '192.168.1.168',
+  // server: 'http://' + app.domain + ':3000',
+  whereIAm: [],
+  config: {}
 };
+
+app.initialize();

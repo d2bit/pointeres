@@ -405,7 +405,7 @@ function changeLang(lang) {
 
 function rechargeLang() {
     window.menu = db.translation[storage.lang].menu;
-    window.text = db.translation[storage.lang].text;
+    window.text = db.translation[storage.lang].principal;
     $('#menu li').each(function(index, item) {
         $(item).contents().last()[0].textContent = window.menu[index];
     });
