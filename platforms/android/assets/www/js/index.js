@@ -138,7 +138,7 @@ var app = {
       url: app.server + '/open',
       data: {
         id: app.id,
-        lang: app.lang,
+        lang: app.config.lang,
         uptime: app.uptime,
         saved: localStorage.getItem('saved')
       },
@@ -186,7 +186,7 @@ var app = {
       url: app.server + '/click',
       data: {
         "id": app.id,
-        "lang": app.lang,
+        "lang": app.config.lang,
         "info" : data
       },
       dataType: 'json',
@@ -207,7 +207,7 @@ var app = {
             error: error
           };
         }
-        saveInfo('click', data);
+        app.saveInfo('click', data);
       }
     });
   },
@@ -220,7 +220,7 @@ var app = {
     localStorage.setItem('saved', JSON.stringify(app.saved));
   },
   clearSaved: function() {
-    app.saved = {};
+    app.saved = [];
     localStorage.setItem('saved', '');
   },
   changeLang: function(lang) {
@@ -235,7 +235,7 @@ var app = {
     app.rechargeLang();
   },
   rechargeLang: function() {
-    app.translation = db.translation[app.lang];
+    app.translation = db.translation[app.config.lang];
     
     $('#menu li').each(function(index, item) {
         $(item).contents().last()[0].textContent = app.translation.menu[index];
@@ -290,9 +290,11 @@ var app = {
         gps: true
       };
     }
-    app.lang = localStorage.getItem('lang') || navigator.language.split('-')[0];
+
+    app.config.lang = localStorage.getItem('lang') || navigator.language.split('-')[0];
     app.id = localStorage.getItem('id');
     app.uptime = +localStorage.getItem('uptime');
+    app.saved = JSON.parse(localStorage.getItem('saved')) || [];
 
     app.rechargeLang();
   },
@@ -300,7 +302,7 @@ var app = {
     app.timer = setInterval(function() {
       app.uptime += +time;
       localStorage.setItem('uptime', app.uptime);
-    }, time);
+    }, time * 1000);
   },
   captureQr: function() {
     cordova.plugins.barcodeScanner.scan(function(result) {
@@ -344,24 +346,43 @@ var app = {
       return app.errcode.NOGMAPS;
     }
     var mapInfo = app.getMapInfo(mapName);
-    // lastMapInfo == mapInfo? !!!
-    if (!mapInfo) {
-      if (debug) {
-        debug.mapName = mapName;
-        debug.mapInfo = mapInfo;
-        console.error('no mapinfo found');
+    console.log(app.lastMapInfo);
+    console.log(mapInfo);
+    console.log(app.lastMapInfoLang);
+    console.log(app.config.lang);
+    if (mapInfo && app.lastMapInfo !== mapInfo || app.lastMapInfoLang !== app.config.lang) {
+      if (!mapInfo) {
+        if (debug) {
+          debug.mapName = mapName;
+          debug.mapInfo = mapInfo;
+          console.error('no mapinfo found');
+        }
+        return app.errcode.NOMAPINFO;
       }
-      return app.errcode.NOMAPINFO;
+      app.map = new GMaps({
+        div: '#mapplace',
+        lat: mapInfo.lat || app.coords.lat,
+        lng: mapInfo.lng || app.coords.lng,
+        zoom: mapInfo.zoom || 15,
+        disableDefaultUI: true,
+        styles: [
+        { 
+          "featureType": "poi.place_of_worship",
+          "stylers": [ { "visibility": "off" } ]
+        },
+        { 
+          "featureType": "poi.business",
+          "stylers": [ { "visibility": "off" } ] 
+        }
+        ]
+      });
+      app.lastMapInfoLang = app.config.lang;
+      app.lastMapInfo = mapInfo;
+      var markers = app.getMapMarkers(mapInfo.markers);
+      // console.log(mapInfo.markers);
+      // console.log(markers);
+      app.map.addMarkers(markers);
     }
-    map = new GMaps({
-      el: '#mapplace',
-      lat: mapInfo.lat || app.coords.lat,
-      lng: mapInfo.lng || app.coords.lng
-    });
-    var markers = mapInfo.markers.slice(0);
-    // console.log(mapInfo.markers);
-    console.log(markers);
-    // map.addMarkers(markers);
 
     $('#map').removeClass('right').addClass('center');
     $('#' + app.whereIAm[app.whereIAm.length - 1]).removeClass('center').addClass('left');
@@ -369,6 +390,23 @@ var app = {
   },
   getMapInfo: function(mapName) {
     return db.mapInfo && db.mapInfo[mapName];
+  },
+  getMapMarkers: function(markers) {
+    // console.log(markers.length);
+    // console.log(markers);
+    var tMarkers = [];
+    for (var i = 0; i < markers.length; i++) {
+      tMarkers.push({
+        lat: markers[i].lat,
+        lng: markers[i].lng,
+        title: markers[i].title,
+        infoWindow: {
+          content: db.translation[app.config.lang].maps[markers[i].id]
+        },
+        icon: markers[i].icon
+      })
+    }
+    return tMarkers;
   },
   attachEvents: function() {
     $('li').on('tap', function(e) {

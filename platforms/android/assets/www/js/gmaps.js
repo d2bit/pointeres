@@ -1,8 +1,20 @@
+(function(root, factory) {
+  if(typeof exports === 'object') {
+    module.exports = factory();
+  }
+  else if(typeof define === 'function' && define.amd) {
+    define('GMaps', [], factory);
+  }
+
+  root.GMaps = factory();
+
+}(this, function() {
+
 /*!
- * GMaps.js v0.4.5
+ * GMaps.js v0.4.11
  * http://hpneo.github.com/gmaps/
  *
- * Copyright 2013, Gustavo Leon
+ * Copyright 2014, Gustavo Leon
  * Released under the MIT License.
  */
 
@@ -92,7 +104,7 @@ var arrayToLatLng = function(coords, useGeoJSON) {
   var i;
 
   for (i = 0; i < coords.length; i++) {
-    if (coords[i].length > 0 && typeof(coords[i][0]) != "number") {
+    if (coords[i].length > 0 && typeof(coords[i][0]) == "object") {
       coords[i] = arrayToLatLng(coords[i], useGeoJSON);
     }
     else {
@@ -136,6 +148,8 @@ var GMaps = (function(global) {
   var doc = document;
 
   var GMaps = function(options) {
+    if (!this) return new GMaps(options);
+
     options.zoom = options.zoom || 15;
     options.mapType = options.mapType || 'roadmap';
 
@@ -253,7 +267,7 @@ var GMaps = (function(global) {
       context_menu_element.innerHTML = html;
 
       var context_menu_items = context_menu_element.getElementsByTagName('a'),
-          context_menu_items_count = context_menu_items.length
+          context_menu_items_count = context_menu_items.length,
           i;
 
       for (i = 0; i < context_menu_items_count; i++) {
@@ -396,7 +410,9 @@ var GMaps = (function(global) {
           i;
 
       for (i = 0; i < markers_length; i++) {
-        latLngs.push(this.markers[i].getPosition());
+        if(typeof(this.markers[i].visible) === 'boolean' && this.markers[i].visible) {
+          latLngs.push(this.markers[i].getPosition());
+        }
       }
 
       this.fitLatLngBounds(latLngs);
@@ -464,9 +480,12 @@ GMaps.prototype.createControl = function(options) {
   var control = document.createElement('div');
 
   control.style.cursor = 'pointer';
-  control.style.fontFamily = 'Arial, sans-serif';
-  control.style.fontSize = '13px';
-  control.style.boxShadow = 'rgba(0, 0, 0, 0.398438) 0px 2px 4px';
+  
+  if (options.disableDefaultStyles !== true) {
+    control.style.fontFamily = 'Roboto, Arial, sans-serif';
+    control.style.fontSize = '11px';
+    control.style.boxShadow = 'rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px';
+  }
 
   for (var option in options.style) {
     control.style[option] = options.style[option];
@@ -522,15 +541,15 @@ GMaps.prototype.createMarker = function(options) {
       base_options = {
         position: new google.maps.LatLng(options.lat, options.lng),
         map: null
-      };
+      },
+      marker_options = extend_object(base_options, options);
 
-  delete options.lat;
-  delete options.lng;
-  delete options.fences;
-  delete options.outside;
+  delete marker_options.lat;
+  delete marker_options.lng;
+  delete marker_options.fences;
+  delete marker_options.outside;
 
-  var marker_options = extend_object(base_options, options),
-      marker = new google.maps.Marker(marker_options);
+  var marker = new google.maps.Marker(marker_options);
 
   marker.fences = fences;
 
@@ -652,7 +671,7 @@ GMaps.prototype.addMarkers = function(array) {
 
 GMaps.prototype.hideInfoWindows = function() {
   for (var i = 0, marker; marker = this.markers[i]; i++){
-    if (marker.infoWindow){
+    if (marker.infoWindow) {
       marker.infoWindow.close();
     }
   }
@@ -664,6 +683,10 @@ GMaps.prototype.removeMarker = function(marker) {
       this.markers[i].setMap(null);
       this.markers.splice(i, 1);
 
+      if(this.markerClusterer) {
+        this.markerClusterer.removeMarker(marker);
+      }
+
       GMaps.fire('marker_removed', marker, this);
 
       break;
@@ -673,24 +696,31 @@ GMaps.prototype.removeMarker = function(marker) {
   return marker;
 };
 
-GMaps.prototype.removeMarkers = function(collection) {
-  var collection = (collection || this.markers);
-
-  for (var i = 0;i < this.markers.length; i++) {
-    if(this.markers[i] === collection[i]) {
-      this.markers[i].setMap(null);
-    }
-  }
-
+GMaps.prototype.removeMarkers = function (collection) {
   var new_markers = [];
 
-  for (var i = 0;i < this.markers.length; i++) {
-    if(this.markers[i].getMap() != null) {
-      new_markers.push(this.markers[i]);
+  if (typeof collection == 'undefined') {
+    for (var i = 0; i < this.markers.length; i++) {
+      this.markers[i].setMap(null);
     }
+    
+    this.markers = new_markers;
   }
+  else {
+    for (var i = 0; i < collection.length; i++) {
+      if (this.markers.indexOf(collection[i]) > -1) {
+        this.markers[i].setMap(null);
+      }
+    }
 
-  this.markers = new_markers;
+    for (var i = 0; i < this.markers.length; i++) {
+      if (this.markers[i].getMap() != null) {
+        new_markers.push(this.markers[i]);
+      }
+    }
+
+    this.markers = new_markers;
+  }
 };
 
 GMaps.prototype.drawOverlay = function(options) {
@@ -1117,8 +1147,8 @@ GMaps.prototype.addLayer = function(layerName, options) {
       case 'places':
         this.singleLayers.places = layer = new google.maps.places.PlacesService(this.map);
 
-        //search and  nearbySearch callback, Both are the same
-        if (options.search || options.nearbySearch) {
+        //search, nearbySearch, radarSearch callback, Both are the same
+        if (options.search || options.nearbySearch || options.radarSearch) {
           var placeSearchRequest  = {
             bounds : options.bounds || null,
             keyword : options.keyword || null,
@@ -1128,6 +1158,10 @@ GMaps.prototype.addLayer = function(layerName, options) {
             rankBy : options.rankBy || null,
             types : options.types || null
           };
+
+          if (options.radarSearch) {
+            layer.radarSearch(placeSearchRequest, options.radarSearch);
+          }
 
           if (options.search) {
             layer.search(placeSearchRequest, options.search);
@@ -1221,6 +1255,7 @@ GMaps.prototype.getRoutes = function(options) {
   request_options.unitSystem = unitSystem;
 
   delete request_options.callback;
+  delete request_options.error;
 
   var self = this,
       service = new google.maps.DirectionsService();
@@ -1232,10 +1267,15 @@ GMaps.prototype.getRoutes = function(options) {
           self.routes.push(result.routes[r]);
         }
       }
-    }
 
-    if (options.callback) {
-      options.callback(self.routes);
+      if (options.callback) {
+        options.callback(self.routes);
+      }
+    }
+    else {
+      if (options.error) {
+        options.error(result, status);
+      }
     }
   });
 };
@@ -1298,6 +1338,7 @@ GMaps.prototype.drawRoute = function(options) {
     travelMode: options.travelMode,
     waypoints: options.waypoints,
     unitSystem: options.unitSystem,
+    error: options.error,
     callback: function(e) {
       if (e.length > 0) {
         self.drawPolyline({
@@ -1322,6 +1363,7 @@ GMaps.prototype.travelRoute = function(options) {
       destination: options.destination,
       travelMode: options.travelMode,
       waypoints : options.waypoints,
+      error: options.error,
       callback: function(e) {
         //start callback
         if (e.length > 0 && options.start) {
@@ -1367,6 +1409,7 @@ GMaps.prototype.drawSteppedRoute = function(options) {
       destination: options.destination,
       travelMode: options.travelMode,
       waypoints : options.waypoints,
+      error: options.error,
       callback: function(e) {
         //start callback
         if (e.length > 0 && options.start) {
@@ -1442,6 +1485,7 @@ GMaps.Route.prototype.getRoute = function(options) {
     destination : this.destination,
     travelMode : options.travelMode,
     waypoints : this.waypoints || [],
+    error: options.error,
     callback : function() {
       self.route = e[0];
 
@@ -1546,6 +1590,10 @@ GMaps.staticMapURL = function(options){
     delete options.marker;
   }
 
+  var styles = options.styles;
+
+  delete options.styles;
+
   var polyline = options.polyline;
   delete options.polyline;
 
@@ -1580,7 +1628,7 @@ GMaps.staticMapURL = function(options){
   }
   parameters.push('size=' + size);
 
-  if (!options.zoom) {
+  if (!options.zoom && options.zoom !== false) {
     options.zoom = 15;
   }
 
@@ -1603,20 +1651,33 @@ GMaps.staticMapURL = function(options){
 
       if (data.size && data.size !== 'normal') {
         marker.push('size:' + data.size);
+        delete data.size;
       }
       else if (data.icon) {
         marker.push('icon:' + encodeURI(data.icon));
+        delete data.icon;
       }
 
       if (data.color) {
         marker.push('color:' + data.color.replace('#', '0x'));
+        delete data.color;
       }
 
       if (data.label) {
         marker.push('label:' + data.label[0].toUpperCase());
+        delete data.label;
       }
 
       loc = (data.address ? data.address : data.lat + ',' + data.lng);
+      delete data.address;
+      delete data.lat;
+      delete data.lng;
+
+      for(var param in data){
+        if (data.hasOwnProperty(param)) {
+          marker.push(param + ':' + data[param]);
+        }
+      }
 
       if (marker.length || i === 0) {
         marker.push(loc);
@@ -1627,6 +1688,35 @@ GMaps.staticMapURL = function(options){
       else {
         marker = parameters.pop() + encodeURI('|' + loc);
         parameters.push(marker);
+      }
+    }
+  }
+
+  /** Map Styles **/
+  if (styles) {
+    for (var i = 0; i < styles.length; i++) {
+      var styleRule = [];
+      if (styles[i].featureType && styles[i].featureType != 'all' ) {
+        styleRule.push('feature:' + styles[i].featureType);
+      }
+
+      if (styles[i].elementType && styles[i].elementType != 'all') {
+        styleRule.push('element:' + styles[i].elementType);
+      }
+
+      for (var j = 0; j < styles[i].stylers.length; j++) {
+        for (var p in styles[i].stylers[j]) {
+          var ruleArg = styles[i].stylers[j][p];
+          if (p == 'hue' || p == 'color') {
+            ruleArg = '0x' + ruleArg.substring(1);
+          }
+          styleRule.push(p + ':' + ruleArg);
+        }
+      }
+
+      var rule = styleRule.join('|');
+      if (rule != '') {
+        parameters.push('style=' + rule);
       }
     }
   }
@@ -1685,6 +1775,10 @@ GMaps.staticMapURL = function(options){
     parameters.push('path=' + encodeURI(polyline));
   }
 
+  /** Retina support **/
+  var dpi = window.devicePixelRatio || 1;
+  parameters.push('scale=' + dpi);
+
   parameters = parameters.join('&');
   return static_root + parameters;
 };
@@ -1720,7 +1814,7 @@ GMaps.prototype.removeOverlayMapType = function(overlayMapTypeIndex) {
 };
 
 GMaps.prototype.addStyle = function(options) {
-  var styledMapType = new google.maps.StyledMapType(options.styles, options.styledMapName);
+  var styledMapType = new google.maps.StyledMapType(options.styles, { name: options.styledMapName });
 
   this.map.mapTypes.set(options.mapTypeId, styledMapType);
 };
@@ -1980,3 +2074,6 @@ if (!Array.prototype.indexOf) {
       return -1;
   }
 }
+  
+return GMaps;
+}));
