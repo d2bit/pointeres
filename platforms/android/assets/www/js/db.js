@@ -24,13 +24,13 @@ var db = {
 		'Shopping'
 		],
 		maps: {
-			m1: 'Moraira Castle',
-			m2: 'Portet Beach',
-			m3: 'Andrago Beach',
-			m4: 'Fish market',
-			t1: 'St Catherine\'s Church',
-			t2: 'TM Auditorium',
-			t3: '6th Cent Square'
+			m1: { text:'Moraira Castle', video: 'video_castell'},
+			m2: { text:'Portet Beach' },
+			m3: { text:'Andrago Beach' },
+			m4: { text:'Fish market' },
+			t1: { text:'St Catherine\'s Church', video: 'video_iglesia'},
+			t2: { text:'TM Auditorium' },
+			t3: { text:'6th Cent Square' }
 		}
 	},
 	{
@@ -54,21 +54,21 @@ var db = {
 		'Compras'
 		],
 		maps: {
-			m1: 'Castillo Moraira',
-			m2: 'Playa Portet',
-			m3: 'Playa Andragó',
-			m4: 'Lonja pescado',
-			t1: 'Iglesia Snta. Catelina',
-			t2: 'Auditorio TM',
-			t3: 'Plaza 6o Centenario'
+			m1: { text:'Castillo Moraira', video: 'video_castell' },
+			m2: { text:'Playa Portet' },
+			m3: { text:'Playa Andragó' },
+			m4: { text:'Lonja pescado' },
+			t1: { text:'Iglesia Santa. Catalina', video: 'video_iglesia' },
+			t2: { text:'Auditorio TM' },
+			t3: { text: 'Plaza 6o Centenario' }
 		}
 	}
 	],
 	qrLinks: {
-		teulada: {
-			iglesia: 'https://www.youtube.com/watch?v=9NDMq94lLGY',
-			fontsanta: 'https://www.youtube.com/watch?v=rC7Wm57H3Dg',
-			castell: 'https://www.youtube.com/watch?v=IE_Z_0-zOY4'
+		teulada: { // lang 0 ... n
+			iglesia: ['https://www.youtube.com/watch?v=9NDMq94lLGY', 'https://www.youtube.com/watch?v=9NDMq94lLGY'],
+			fontsanta: ['https://www.youtube.com/watch?v=rC7Wm57H3Dg', 'https://www.youtube.com/watch?v=9NDMq94lLGY'],
+			castell: ['https://www.youtube.com/watch?v=IE_Z_0-zOY4', 'https://www.youtube.com/watch?v=9NDMq94lLGY']
 		}
 	},
 	mapInfo: {
@@ -83,7 +83,7 @@ var db = {
 				lng:  0.102318,
 				title: 'Iglesia Snta Caterina',
 				infoWindow: {
-					content: '<p>IGLESIA</p>'
+					content: 'IGLESIA'
 				},
 				icon: 'img/marker_icon.png'
 			},
@@ -93,7 +93,7 @@ var db = {
 				lng:  0.109472,
 				title: 'Auditori TM',
 				infoWindow: {
-					content: '<p>AUDITORI</p>'
+					content: 'AUDITORI'
 				},
 				icon: 'img/marker_icon.png'
 			},

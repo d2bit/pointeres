@@ -261,8 +261,8 @@ var app = {
           console.error('code: ' + error.code + '\n' + 'message: ' + error.message);
         },
         {
-          // maximumAge: 10 * 60 * 1000,
-          // timeout: 3 * 60 * 1000,
+          maximumAge: 10 * 60 * 1000,
+          timeout: 3 * 60 * 1000,
           enableHighAccuracy: true
         }
       );
@@ -307,30 +307,35 @@ var app = {
   },
   captureQr: function() {
     cordova.plugins.barcodeScanner.scan(function(result) {
+      if (debug) {
+        debug.qrScan = result;
+      }
       if (result.cancelled) {
         return app.errcode.QRCANCEL;
       }
-      var link = getQrLink(result.text);
+      var link = app.getQrLink(result.text);
       if (!link) {
         return app.errcode.QRBAD;
       }
       if (!app.hasConnection()) {
         return app.errcode.NOCONNECTION;
       }
-      cordova.plugins.videoPlayer.play(link);
+      app.playVideo(link);
     });
   },
   getQrLink: function(text) {
     var spltd = text.split('/');
-    if (spltd[2] !== app.domain) {
+    if (spltd[2] !== 'www.pointeres.es') { // !!! app.domain
       return false;
     }
-    if (spltd[3] in db.qrLinks && spltd[4] in db.qrLinks[spltd[3]]) {
+    if (!(spltd[3] in db.qrLinks && spltd[4] in db.qrLinks[spltd[3]])) {
       return false;
     }
     return db.qrLinks[spltd[3]][spltd[4]];
   },
   playVideo: function(link) {
+    var link = link[app.config.lang];
+    alert('playing video ' + link);
     cordova.plugins.videoPlayer.play(link);
   },
   showMap: function(mapName) {
@@ -347,19 +352,19 @@ var app = {
       return app.errcode.NOGMAPS;
     }
     var mapInfo = app.getMapInfo(mapName);
-    /*console.log(app.lastMapInfo);
-    console.log(mapInfo);
-    console.log(app.lastMapInfoLang);
-    console.log(app.config.lang);*/
-    if (true || (mapInfo && app.lastMapInfo !== mapInfo || app.lastMapInfoLang !== app.config.lang)) {
-      if (!mapInfo) {
-        if (debug) {
-          debug.mapName = mapName;
-          debug.mapInfo = mapInfo;
-          console.error('no mapinfo found');
-        }
-        return app.errcode.NOMAPINFO;
+    // console.log(app.lastMapInfo);
+    // console.log(mapInfo);
+    // console.log(app.lastMapInfoLang);
+    // console.log(app.config.lang);
+    if (!mapInfo) {
+      if (debug) {
+        debug.mapName = mapName;
+        debug.mapInfo = mapInfo;
+        console.error('no mapinfo found');
       }
+      return app.errcode.NOMAPINFO;
+    }
+    if (!app.map) { // create new map
       app.map = new GMaps({
         div: '#mapplace',
         lat: mapInfo.lat || app.coords.lat,
@@ -378,12 +383,34 @@ var app = {
         ]
       });
       app.lastMapInfoLang = app.config.lang;
-      app.lastMapInfo = mapInfo;
-      var markers = app.getMapMarkers(mapInfo.markers);
+      // app.lastMapInfo = mapInfo;
+      // var markers = app.getMapMarkers(mapInfo.markers);
       // console.log(mapInfo.markers);
       // console.log(markers);
+      var markers = app.getAllMapMarkers();
       app.map.addMarkers(markers);
     }
+    else {
+      if (app.lastMapInfoLang !== app.config.lang) { // change lang of markers
+        // console.log('lang change maps');
+        app.lastMapInfoLang = app.config.lang;
+        var markers = app.getAllMapMarkers();
+        // console.log(markers);
+        app.map.removeMarkers();
+        app.map.addMarkers(markers);
+      }
+      if (mapInfo !== app.lastMapInfo) { // move center (and zoom) of the map
+        // console.log('move center of the map');
+        // console.log(app.map);
+        app.map.panTo({lat: mapInfo.lat, lng: mapInfo.lng });
+        // app.map.setCenter(mapInfo.lat, mapInfo.lng);
+        app.map.setZoom(mapInfo.zoom);
+      }
+    }
+    // console.log('last: '+ app.lastMapInfo);
+    // console.log('now : '+ mapInfo);
+    console.log(app.map);
+    app.lastMapInfo = mapInfo;
 
     $('#map').removeClass('right').addClass('center');
     $('#' + app.whereIAm[app.whereIAm.length - 1]).removeClass('center').addClass('left');
@@ -409,7 +436,37 @@ var app = {
     }
     return tMarkers;
   },
+  getAllMapMarkers: function() {
+    // console.log(db.mapInfo);
+    var tMarkers = [];
+    for (var mapInfo in db.mapInfo) {
+      markers = db.mapInfo[mapInfo].markers;
+      for (var i = 0; i < markers.length; i++) {
+        tMarkers.push({
+          lat: markers[i].lat,
+          lng: markers[i].lng,
+          title: markers[i].title,
+          infoWindow: {
+            content: app.setMapContent(markers[i].id)
+          },
+          icon: markers[i].icon
+        })
+      }
+    }
+    return tMarkers;
+  },
+  setMapContent: function(id) {
+    var content = app.translation.maps[id];
+    var links = '';
+    if (content.video) {
+      links += '<ul><li data-menu="' + content.video + '">Ver Video</li></ul>';
+    }
+    return '<h3>' + content.text + '</h3>' + links;
+  },
   attachEvents: function() {
+    $('#mapplace').on('tap', 'li', function(e) {
+      return $('#video_iglesia').trigger('tap');
+    });
     $('li').on('tap', function(e) {
       var data = $(this).attr('data-menu') || $(this).attr('id') || $(this).parent().attr('id');
 

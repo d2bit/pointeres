@@ -57,7 +57,7 @@ body {
 
 @media (min-width:459px) {
     body {
-        font-size: 2em;
+        font-size: 1.5em;
     }
     ul > li {
         display: block;
