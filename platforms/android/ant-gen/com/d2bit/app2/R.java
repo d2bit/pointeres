@@ -245,7 +245,11 @@ containing a value of this type.
         public static final int old_icon=0x7f020026;
         public static final int share_via_barcode=0x7f020027;
         public static final int shopper_icon=0x7f020028;
-        public static final int splash320_480=0x7f020029;
+        public static final int splash=0x7f020029;
+        public static final int splash320=0x7f02002a;
+        public static final int splash320_480=0x7f02002b;
+        public static final int splash480=0x7f02002c;
+        public static final int splash720=0x7f02002d;
     }
     public static final class id {
         public static final int back_button=0x7f07001e;

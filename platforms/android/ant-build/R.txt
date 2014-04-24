@@ -82,7 +82,11 @@ int drawable launcher_icon 0x7f020025
 int drawable old_icon 0x7f020026
 int drawable share_via_barcode 0x7f020027
 int drawable shopper_icon 0x7f020028
-int drawable splash320_480 0x7f020029
+int drawable splash 0x7f020029
+int drawable splash320 0x7f02002a
+int drawable splash320_480 0x7f02002b
+int drawable splash480 0x7f02002c
+int drawable splash720 0x7f02002d
 int id back_button 0x7f07001e
 int id barcode_image_view 0x7f070011
 int id bookmark_title 0x7f07000c

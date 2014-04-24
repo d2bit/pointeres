@@ -3,7 +3,7 @@ var debug = {};
 var app = {
   // Application Constructor
   initialize: function() {
-    this.bindEvents();
+    app.bindEvents();
   },
   // Bind Event Listeners
   //
@@ -28,7 +28,7 @@ var app = {
     app.loadConfig();
     app.setUptimer(db.timer); // default 10secs
     app.server = 'http://' + app.domain + ':3000';
-    
+
     app.attachEvents();
 
     if (!app.hasId()) {
@@ -138,7 +138,7 @@ var app = {
       url: app.server + '/open',
       data: {
         id: app.id,
-        lang: app.config.lang,
+        lang: db.translationLocales[app.config.lang],
         uptime: app.uptime,
         saved: localStorage.getItem('saved')
       },
@@ -185,9 +185,9 @@ var app = {
       type: 'POST',
       url: app.server + '/click',
       data: {
-        "id": app.id,
-        "lang": app.config.lang,
-        "info" : data
+        id: app.id,
+        lang: db.translationLocales[app.config.lang],
+        info : data
       },
       dataType: 'json',
       success: function(data, status, xhr) {
@@ -291,7 +291,8 @@ var app = {
       };
     }
 
-    app.config.lang = localStorage.getItem('lang') || navigator.language.split('-')[0];
+    app.config.lang = localStorage.getItem('lang') || navigator.language.split('-')[1];
+    app.config.lang = Math.abs(db.translationLocales.indexOf(app.config.lang));
     app.id = localStorage.getItem('id');
     app.uptime = +localStorage.getItem('uptime');
     app.saved = JSON.parse(localStorage.getItem('saved')) || [];
@@ -346,11 +347,11 @@ var app = {
       return app.errcode.NOGMAPS;
     }
     var mapInfo = app.getMapInfo(mapName);
-    console.log(app.lastMapInfo);
+    /*console.log(app.lastMapInfo);
     console.log(mapInfo);
     console.log(app.lastMapInfoLang);
-    console.log(app.config.lang);
-    if (mapInfo && app.lastMapInfo !== mapInfo || app.lastMapInfoLang !== app.config.lang) {
+    console.log(app.config.lang);*/
+    if (true || (mapInfo && app.lastMapInfo !== mapInfo || app.lastMapInfoLang !== app.config.lang)) {
       if (!mapInfo) {
         if (debug) {
           debug.mapName = mapName;
@@ -447,6 +448,9 @@ var app = {
           e.stopPropagation();
           app.changeLang(data.substr(5,2));
           app.onBackButton();
+        }
+        else if (data === 'config') {
+          alert(window.devicePixelRatio);
         }
       }
     });

@@ -1,7 +1,7 @@
 var db = {
 	server: 'http://192.168.1.168:3000',
 	timer: 10, // in seconds
-	translationLocales: ['en', 'es'],
+	translationLocales: ['en', 'es'], //default 1
 	translation: [
 	{
 		name: 'English',

@@ -182,6 +182,8 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-mdpi/old_icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-mdpi/ic_action_next_item.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-mdpi/ic_action_previous_item.png \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-mdpi/splash.png \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-mdpi/splash320.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-mdpi/icon_pointeres48.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-mdpi/icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/values-ja/strings.xml \
@@ -206,7 +208,9 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-hdpi/launcher_icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-hdpi/ic_action_next_item.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-hdpi/ic_action_previous_item.png \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-hdpi/splash.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-hdpi/icon_pointeres72.png \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-hdpi/splash480.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-hdpi/icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-hdpi/shopper_icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/values-sv/strings.xml \
@@ -229,11 +233,13 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/values-pl/strings.xml \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/values-da/strings.xml \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-xhdpi/ic_action_remove.png \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-xhdpi/splash720.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-xhdpi/old_icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-xhdpi/launcher_icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-xhdpi/ic_action_next_item.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-xhdpi/ic_action_previous_item.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-xhdpi/icon_pointeres96.png \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-xhdpi/splash.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-xhdpi/icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/values-hi/strings.xml \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/res/drawable-ldpi/old_icon.png \
@@ -255,6 +261,8 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-mdpi/old_icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-mdpi/ic_action_next_item.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-mdpi/ic_action_previous_item.png \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-mdpi/splash.png \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-mdpi/splash320.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-mdpi/icon_pointeres48.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-mdpi/icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-hdpi/ic_action_remove.png \
@@ -262,7 +270,9 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-hdpi/launcher_icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-hdpi/ic_action_next_item.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-hdpi/ic_action_previous_item.png \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-hdpi/splash.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-hdpi/icon_pointeres72.png \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-hdpi/splash480.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-hdpi/icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-hdpi/shopper_icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-xxhdpi/ic_action_remove.png \
@@ -270,11 +280,13 @@
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-xxhdpi/ic_action_next_item.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-xxhdpi/ic_action_previous_item.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-xhdpi/ic_action_remove.png \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-xhdpi/splash720.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-xhdpi/old_icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-xhdpi/launcher_icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-xhdpi/ic_action_next_item.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-xhdpi/ic_action_previous_item.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-xhdpi/icon_pointeres96.png \
+/home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-xhdpi/splash.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-xhdpi/icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-ldpi/old_icon.png \
 /home/d2bit/Desktop/cordova-app1/app2/platforms/android/ant-build/res/drawable-ldpi/icon_pointeres36.png \

@@ -30,7 +30,7 @@ public class app2 extends CordovaActivity
         super.onCreate(savedInstanceState);
         super.init();
         // Set by <content src="index.html" /> in config.xml
-super.setIntegerProperty("foo", R.drawable.foo);
+super.setIntegerProperty("splash", R.drawable.splash);
         super.loadUrl(Config.getStartUrl(), 5000);
         //super.loadUrl("file:///android_asset/www/index.html");
     }
